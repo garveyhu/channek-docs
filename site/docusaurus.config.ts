@@ -61,6 +61,11 @@ const config: Config = {
         theme: {
           customCss: './src/css/custom.css',
         },
+        sitemap: {
+          // 搜索页进 sitemap 是纯浪费:它自己就是个搜索框,抓过去只会拿到一页空结果,
+          // 却照样吃掉抓取预算。robots.txt 里也一并挡掉了。
+          ignorePatterns: ['/search'],
+        },
       } satisfies Preset.Options,
     ],
   ],

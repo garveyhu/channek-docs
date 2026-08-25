@@ -1,0 +1,94 @@
+# Channek 开发者文档
+# https://docs.channek.com
+#
+# 子域不会因为主域被收录就跟着被收录:它在搜索引擎眼里是另一个站,要有自己的
+# robots 与 sitemap,也要各自提交一遍。这个文件此前不存在——请求 /robots.txt
+# 落到 nginx 的 =404 上,抓取器只好按「没打过招呼」处理。
+
+User-agent: *
+Allow: /
+Disallow: /search
+
+# ── 逐条放行,包括 AI 抓取器 ──
+# 与主站 robots.txt 同一套名单、同一个理由:被它们盖住不是排名靠后,是在对应的
+# AI 答案里彻底不存在。而这个站恰恰是最该被 AI 读到的一块——契约都写在这儿。
+#
+# **每组都要重写一遍 Disallow**:robots.txt 只认最贴切的那一组,具名分组一旦出现,
+# `User-agent: *` 里的规则对它就完全失效。
+
+# Google 搜索
+User-agent: Googlebot
+Allow: /
+Disallow: /search
+
+# Gemini 与 AI Overviews
+User-agent: Google-Extended
+Allow: /
+Disallow: /search
+
+# Bing 与 Microsoft Copilot
+User-agent: Bingbot
+Allow: /
+Disallow: /search
+
+# 百度
+User-agent: Baiduspider
+Allow: /
+Disallow: /search
+
+# OpenAI 训练与检索
+User-agent: GPTBot
+Allow: /
+Disallow: /search
+
+# ChatGPT 带浏览时的实时抓取
+User-agent: ChatGPT-User
+Allow: /
+Disallow: /search
+
+# ChatGPT 搜索索引
+User-agent: OAI-SearchBot
+Allow: /
+Disallow: /search
+
+# Anthropic Claude
+User-agent: ClaudeBot
+Allow: /
+Disallow: /search
+
+# Anthropic 旧 UA
+User-agent: anthropic-ai
+Allow: /
+Disallow: /search
+
+# Perplexity
+User-agent: PerplexityBot
+Allow: /
+Disallow: /search
+
+# Siri 与 Spotlight
+User-agent: Applebot
+Allow: /
+Disallow: /search
+
+# Apple Intelligence
+User-agent: Applebot-Extended
+Allow: /
+Disallow: /search
+
+# 豆包 / 抖音搜索
+User-agent: Bytespider
+Allow: /
+Disallow: /search
+
+# 神马搜索
+User-agent: YisouSpider
+Allow: /
+Disallow: /search
+
+# 搜狗
+User-agent: Sogou web spider
+Allow: /
+Disallow: /search
+
+Sitemap: https://docs.channek.com/sitemap.xml
