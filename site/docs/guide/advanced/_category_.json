@@ -1,0 +1,8 @@
+{
+  "label": "进阶",
+  "position": 3,
+  "link": {
+    "type": "generated-index",
+    "description": "导入风格卡、安装插件、接上密钥、剪辑与导出。"
+  }
+}

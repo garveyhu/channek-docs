@@ -1,0 +1,8 @@
+{
+  "label": "打包与分发",
+  "position": 5,
+  "link": {
+    "type": "generated-index",
+    "description": "把插件发出去:打包、签名、商店、随卡捎带,以及版本与兼容的规矩。"
+  }
+}

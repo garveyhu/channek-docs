@@ -1,0 +1,13 @@
+{
+  "name": "channek-docs-workspace",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Channek 开发者文档站(site)+ 《飞轮的内部》滚动叙事页(flywheel)",
+  "scripts": {
+    "dev:site": "npm --prefix site run start",
+    "dev:story": "npm --prefix flywheel run dev",
+    "sync:story": "rm -rf site/static/story && mkdir -p site/static && cp -R flywheel/dist site/static/story",
+    "build": "npm --prefix flywheel run build && npm run sync:story && npm --prefix site run build",
+    "serve": "npm --prefix site run serve"
+  }
+}

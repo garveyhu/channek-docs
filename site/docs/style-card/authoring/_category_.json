@@ -1,0 +1,8 @@
+{
+  "label": "写一张卡",
+  "position": 3,
+  "link": {
+    "type": "generated-index",
+    "description": "card.json 逐段讲清:结构总览、风格各段、流程、布局、呈现与依赖声明。"
+  }
+}

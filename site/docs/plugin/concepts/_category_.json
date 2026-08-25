@@ -1,0 +1,8 @@
+{
+  "label": "核心概念",
+  "position": 3,
+  "link": {
+    "type": "generated-index",
+    "description": "信任分级、运行时、扩展点机制、就绪度、设置、密钥、多频道——写任何正经插件前要懂的那几件事。"
+  }
+}

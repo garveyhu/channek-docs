@@ -1,0 +1,140 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@500;700;900&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap');
+@import 'tailwindcss';
+
+/* ============================================================
+   冻结 design token —— 派生自 1-资产库/品牌套件/tokens.dtcg.json v2
+   v2 · 鲜艳潮 IP 脸 · 扁平 + 孟菲斯撞色 + 手绘黑猫 IP
+   改任意值前先改 tokens.dtcg.json，这里只是它的 web 派生
+   ============================================================ */
+@theme {
+  /* 5 色板 + IP 专色 */
+  --color-ink: #1a1a1a; /* 主色：黑墨 / 超粗大字 / 粗描边 */
+  --color-paper: #fff8ec; /* 米白纸底 */
+  --color-paper-2: #f3ead8; /* 叠层暖白：卡面 / 分隔 */
+  --color-yellow: #ffd12e; /* 孟菲斯主撞色 */
+  --color-blue: #2b5be8; /* 孟菲斯撞色·蓝 */
+  --color-red: #ff4d4d; /* 孟菲斯撞色·红 / 爆点 */
+  --color-mint: #16c79a; /* 薄荷青 = IP 眼睛 = signature 锐利强调 */
+  --color-ear: #ff8fa3; /* IP 粉内耳 */
+  --color-ink-soft: #6e6a62; /* 暖中性灰：次要文字 / kicker */
+
+  /* 字体配对：中文思源黑/苹方 · 西文数字 Space Grotesk · 等宽 JetBrains
+     标题用 Noto Sans SC（思源黑 web 版·真·900 黑体）= 品牌 signature 超粗黑大字 */
+  --font-display: 'Noto Sans SC', 'Source Han Sans SC', 'PingFang SC', 'Space Grotesk', system-ui, sans-serif;
+  --font-body: 'PingFang SC', 'Source Han Sans SC', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+
+  /* 8px 基准栅格已由 Tailwind 默认间距承担（每级 0.25rem=4px，取 2 的倍数） */
+}
+
+/* 语义别名（给非 Tailwind 自由层 CSS 用） */
+:root {
+  --shadow-hard: 6px 6px 0 var(--color-ink);
+  --shadow-hard-sm: 3px 3px 0 var(--color-ink);
+  --stroke: 2.5px;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  body {
+    margin: 0;
+    background-color: var(--color-paper);
+    color: var(--color-ink);
+    font-family: var(--font-body);
+    font-feature-settings: 'tnum' 1;
+  }
+
+  ::selection {
+    background: var(--color-mint);
+    color: var(--color-paper);
+  }
+
+  /* 米白底上的孟菲斯网点纹理（氛围层，非纯色兜底） */
+  .bg-dotgrid {
+    background-image: radial-gradient(var(--color-ink) 1.1px, transparent 1.1px);
+    background-size: 22px 22px;
+    background-position: -11px -11px;
+  }
+
+  .bg-graph {
+    background-image:
+      linear-gradient(var(--color-paper-2) 1px, transparent 1px),
+      linear-gradient(90deg, var(--color-paper-2) 1px, transparent 1px);
+    background-size: 32px 32px;
+  }
+}
+
+@layer components {
+  /* 硬边阴影卡片 —— 孟菲斯/brutalist 标志性，去塑料感 */
+  .card-hard {
+    border: var(--stroke) solid var(--color-ink);
+    box-shadow: var(--shadow-hard);
+    background: var(--color-paper);
+  }
+
+  .card-hard-sm {
+    border: var(--stroke) solid var(--color-ink);
+    box-shadow: var(--shadow-hard-sm);
+    background: var(--color-paper);
+  }
+
+  /* kicker 标签：等宽小字 + 锐利强调 */
+  .kicker {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--color-ink-soft);
+  }
+
+  /* 超粗黑大字标题 */
+  .heading-xl {
+    font-family: var(--font-display);
+    font-weight: 900;
+    line-height: 0.98;
+    letter-spacing: -0.02em;
+  }
+
+  /* 撞色高亮：词被薄荷青/黄块托住 */
+  .mark-mint {
+    background: var(--color-mint);
+    color: var(--color-paper);
+    padding: 0 0.18em;
+    box-decoration-break: clone;
+  }
+  .mark-yellow {
+    background: var(--color-yellow);
+    color: var(--color-ink);
+    padding: 0 0.18em;
+    box-decoration-break: clone;
+  }
+}
+
+/* 细滚动条贴合纸感 */
+::-webkit-scrollbar {
+  width: 12px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-paper-2);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-ink);
+  border: 3px solid var(--color-paper-2);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

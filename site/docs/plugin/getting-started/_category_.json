@@ -1,0 +1,8 @@
+{
+  "label": "快速上手",
+  "position": 2,
+  "link": {
+    "type": "generated-index",
+    "description": "从零到第一个能跑的插件:环境、最小 manifest、装上看到效果。"
+  }
+}

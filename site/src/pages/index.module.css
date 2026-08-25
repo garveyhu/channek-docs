@@ -1,0 +1,428 @@
+/* 首页门厅:白纸上的两栏 hero + 模块网格,唯一 signature 留给尾部的
+   「飞轮的内部」黄底硬阴影卡(黑猫破框)。 */
+
+.page {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 0 1.5rem 5.5rem;
+}
+
+/* —— Hero:左文右码,非对称两栏 —— */
+
+.hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1.02fr) minmax(0, 0.98fr);
+  gap: 3.5rem;
+  align-items: center;
+  padding: 5.5rem 0 4rem;
+}
+
+.heroText {
+  max-width: 560px;
+}
+
+.kicker {
+  font-family: var(--ifm-font-family-monospace);
+  font-size: 0.74rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--ck-mint-ink);
+  margin-bottom: 1.1rem;
+}
+
+.title {
+  font-size: clamp(2.1rem, 4.6vw, 3.1rem);
+  font-weight: 700;
+  line-height: 1.18;
+  letter-spacing: -0.02em;
+  margin-bottom: 1.3rem;
+}
+
+/* 关键词:马克笔式底衬,不再是色块 */
+.mark {
+  background: linear-gradient(
+    transparent 62%,
+    color-mix(in srgb, var(--ck-mint) 50%, transparent) 62%
+  );
+  padding: 0 0.04em;
+  box-decoration-break: clone;
+}
+
+.sub {
+  font-size: 1rem;
+  line-height: 1.9;
+  color: var(--ck-ink-soft);
+  margin-bottom: 2rem;
+}
+
+.ctaRow {
+  display: flex;
+  gap: 0.8rem;
+  flex-wrap: wrap;
+}
+
+.ctaPrimary,
+.ctaSecondary {
+  display: inline-block;
+  border-radius: 10px;
+  padding: 0.62rem 1.4rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  transition:
+    transform 180ms var(--ck-ease),
+    box-shadow 180ms var(--ck-ease),
+    border-color 180ms var(--ck-ease);
+}
+
+.ctaPrimary {
+  background: var(--ck-ink);
+  color: var(--ck-bg);
+}
+
+.ctaPrimary:hover {
+  background: var(--ck-ink);
+  color: var(--ck-bg);
+  transform: translateY(-1.5px);
+  box-shadow: 0 6px 18px rgba(23, 24, 26, 0.18);
+  text-decoration: none;
+}
+
+.ctaSecondary {
+  border: 1px solid var(--ck-line-strong);
+  color: var(--ck-ink);
+}
+
+.ctaSecondary:hover {
+  border-color: var(--ifm-color-primary);
+  color: var(--ck-ink);
+  transform: translateY(-1.5px);
+  text-decoration: none;
+}
+
+[data-theme='dark'] .ctaPrimary {
+  background: var(--ck-ink);
+  color: #101214;
+}
+
+[data-theme='dark'] .ctaPrimary:hover {
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.45);
+}
+
+.metaLine {
+  font-family: var(--ifm-font-family-monospace);
+  font-size: 0.74rem;
+  color: var(--ck-ink-soft);
+  margin: 1.6rem 0 0;
+}
+
+/* —— 代码面板:固定深色,两个主题里都成立 —— */
+
+.codePanel {
+  margin: 0;
+  border-radius: 14px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  background: #14161a;
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.06) inset,
+    0 18px 44px -18px rgba(23, 24, 26, 0.5);
+}
+
+[data-theme='dark'] .codePanel {
+  border-color: var(--ck-line-strong);
+}
+
+.codePanelBar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.6rem 1.05rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.codePanelFile {
+  font-family: var(--ifm-font-family-monospace);
+  font-size: 0.76rem;
+  font-weight: 600;
+  color: #e7e9ee;
+}
+
+.codePanelHint {
+  font-size: 0.72rem;
+  color: #7d8492;
+}
+
+.codePanelBody {
+  margin: 0;
+  padding: 1.05rem 1.15rem 1.2rem;
+  background: transparent;
+  font-size: 0.74rem;
+  line-height: 1.75;
+  color: #aab1bd;
+  overflow-x: auto;
+}
+
+.tokKey {
+  color: #5eddb8;
+}
+
+.tokStr {
+  color: #dfe3ea;
+}
+
+.tokNum {
+  color: #f2c94c;
+}
+
+/* —— 模块入口 —— */
+
+.moduleGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.moduleCard {
+  display: block;
+  border: 1px solid var(--ck-line);
+  border-radius: 14px;
+  background: var(--ck-surface);
+  padding: 1.4rem 1.55rem 1.35rem;
+  color: inherit;
+  transition:
+    border-color 180ms var(--ck-ease),
+    transform 180ms var(--ck-ease),
+    box-shadow 180ms var(--ck-ease);
+}
+
+.moduleCard:hover {
+  border-color: color-mix(in srgb, var(--ifm-color-primary) 55%, var(--ck-line));
+  transform: translateY(-2px);
+  box-shadow: 0 10px 28px -14px rgba(23, 24, 26, 0.22);
+  text-decoration: none;
+  color: inherit;
+}
+
+[data-theme='dark'] .moduleCard:hover {
+  box-shadow: 0 10px 28px -14px rgba(0, 0, 0, 0.6);
+}
+
+.moduleHead {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  margin-bottom: 0.65rem;
+}
+
+.moduleIcon {
+  display: grid;
+  place-items: center;
+  width: 2.15rem;
+  height: 2.15rem;
+  border-radius: 9px;
+  background: color-mix(in srgb, var(--ck-mint) 12%, transparent);
+  color: var(--ck-mint-ink);
+  flex-shrink: 0;
+}
+
+.moduleTitle {
+  font-size: 1.12rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+.moduleArrow {
+  margin-left: auto;
+  color: var(--ck-ink-soft);
+  font-weight: 600;
+  opacity: 0;
+  transform: translateX(-4px);
+  transition:
+    opacity 180ms var(--ck-ease),
+    transform 180ms var(--ck-ease);
+}
+
+.moduleCard:hover .moduleArrow {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.moduleDesc {
+  font-size: 0.9rem;
+  line-height: 1.75;
+  color: var(--ck-ink-soft);
+  margin: 0;
+}
+
+/* —— 快速入口(教程 + skills 仓库) —— */
+
+.quickRow {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+  margin-bottom: 1.6rem;
+}
+
+.quickCard {
+  display: block;
+  border: 1px solid var(--ck-line);
+  border-radius: 14px;
+  background: var(--ck-subtle);
+  padding: 1.35rem 1.55rem 1.3rem;
+  color: inherit;
+  transition:
+    border-color 180ms var(--ck-ease),
+    background-color 180ms var(--ck-ease),
+    transform 180ms var(--ck-ease);
+}
+
+.quickCard:hover {
+  border-color: color-mix(in srgb, var(--ifm-color-primary) 55%, var(--ck-line));
+  background: var(--ck-surface);
+  transform: translateY(-2px);
+  text-decoration: none;
+  color: inherit;
+}
+
+.quickKicker {
+  font-family: var(--ifm-font-family-monospace);
+  font-size: 0.68rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ck-mint-ink);
+  margin-bottom: 0.45rem;
+}
+
+.quickTitle {
+  font-size: 1.02rem;
+  font-weight: 700;
+  margin-bottom: 0.4rem;
+}
+
+.quickDesc {
+  font-size: 0.88rem;
+  line-height: 1.75;
+  color: var(--ck-ink-soft);
+  margin: 0;
+}
+
+/* —— 飞轮的内部:全页唯一的孟菲斯 signature —— */
+
+.storyRow {
+  margin-top: 1.2rem;
+}
+
+.storyCard {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  border: 2.5px solid #17181a;
+  border-radius: 16px;
+  background-color: var(--ck-yellow);
+  background-image: radial-gradient(rgba(23, 24, 26, 0.16) 1.2px, transparent 1.2px);
+  background-size: 18px 18px;
+  padding: 2rem 2.4rem;
+  color: #17181a;
+  box-shadow: 7px 7px 0 #17181a;
+  transition:
+    transform 200ms var(--ck-ease),
+    box-shadow 200ms var(--ck-ease);
+}
+
+.storyCard:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 10px 10px 0 #17181a;
+  text-decoration: none;
+  color: #17181a;
+}
+
+[data-theme='dark'] .storyCard {
+  box-shadow: 7px 7px 0 rgba(233, 234, 238, 0.4);
+}
+
+[data-theme='dark'] .storyCard:hover {
+  box-shadow: 10px 10px 0 rgba(233, 234, 238, 0.4);
+}
+
+.storyText {
+  flex: 1;
+  min-width: 0;
+}
+
+.storyTitle {
+  font-size: 1.55rem;
+  font-weight: 700;
+  color: #17181a;
+  margin-bottom: 0.55rem;
+}
+
+.storyDesc {
+  font-size: 0.92rem;
+  line-height: 1.85;
+  color: rgba(23, 24, 26, 0.78);
+  margin: 0 0 0.9rem;
+  max-width: 640px;
+}
+
+.storyCta {
+  display: inline-block;
+  font-size: 0.88rem;
+  font-weight: 700;
+  border-bottom: 2px solid #17181a;
+  padding-bottom: 1px;
+  transition: transform 200ms var(--ck-ease);
+}
+
+.storyCard:hover .storyCta {
+  transform: translateX(3px);
+}
+
+/* 黑猫破框:压出卡片上缘,给整页唯一一次越界 */
+.storyCat {
+  flex-shrink: 0;
+  margin: -3.4rem 0.4rem -0.6rem 0;
+  transform: rotate(-4deg);
+  transition: transform 220ms var(--ck-ease);
+  filter: drop-shadow(3px 4px 0 rgba(23, 24, 26, 0.25));
+}
+
+.storyCard:hover .storyCat {
+  transform: rotate(-1deg) translateY(-3px);
+}
+
+/* —— 响应式 —— */
+
+@media (max-width: 960px) {
+  .hero {
+    grid-template-columns: 1fr;
+    gap: 2.4rem;
+    padding-top: 4rem;
+  }
+
+  .heroText {
+    max-width: 640px;
+  }
+}
+
+@media (max-width: 720px) {
+  .moduleGrid,
+  .quickRow {
+    grid-template-columns: 1fr;
+  }
+
+  .storyCard {
+    flex-direction: column-reverse;
+    align-items: flex-start;
+    gap: 0.6rem;
+    padding: 1.6rem 1.7rem;
+  }
+
+  .storyCat {
+    margin: -3rem 0 0;
+    align-self: flex-end;
+    width: 104px;
+    height: 104px;
+  }
+}
