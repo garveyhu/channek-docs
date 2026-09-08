@@ -16,7 +16,7 @@
 ---
 
 > ### The written-down half of the open surface
-> [Channek](https://github.com/garveyhu/Channek) keeps its kernel closed and its **formats and
+> [Channek](https://www.channek.com) keeps its kernel closed and its **formats and
 > protocols public** — the card format, the plugin manifest, every extension-point contract.
 > This repository is where that public surface gets written down for humans: how to author a
 > style card, how to build a plugin, and every contract table you'd ever look up.

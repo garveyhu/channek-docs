@@ -16,7 +16,7 @@
 ---
 
 > ### 开放面被写下来的那一半
-> [Channek](https://github.com/garveyhu/Channek) 内核闭源，**格式与协议规范公开**——卡格式、
+> [Channek](https://www.channek.com) 内核闭源，**格式与协议规范公开**——卡格式、
 > 插件 manifest、每一个扩展点契约。这个仓库就是把那份开放面写给人读的地方：怎么写一张风格卡、
 > 怎么造一个插件、以及所有你会想查的契约表。
 > 线上在 **[docs.channek.com](https://docs.channek.com)**；写给 AI 的另一册是
