@@ -126,7 +126,7 @@ export default function Home() {
   return (
     <Layout
       description="Channek 开发者文档:风格卡与插件开发的完整指南——流程写在卡里,能力来自插件。"
-      title="开发者文档"
+      title="风格卡与插件开发指南"
     >
       <main className={styles.page}>
         <header className={styles.hero}>
