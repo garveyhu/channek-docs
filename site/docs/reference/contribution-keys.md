@@ -77,13 +77,13 @@ sidebar_position: 2
 | `editor.timelineBadge` | 时间轴 clip 上的声明式装饰(插件给数据、内核渲染)。 |
 | `editor.surface` | 整个剪辑工作台由谁承载的声明面。 |
 
-## workspace —— 工作区与卡(3)
+## workspace —— 频道与卡(3)
 
 | 贡献键 | 它是什么 |
 |---|---|
-| `workspace.styleCard` | 随插件分发的风格卡模板(出现在「新建频道」向导里)。 |
+| `workspace.styleCard` | 随插件分发的频道卡模板(出现在「新建频道」向导里)。 |
 | `workspace.artifactKind` | 一种类型化工件——步骤间唯一的数据衔接契约。 |
-| `workspace.layout` | 工作区目录布局 preset(目录探测与脚手架的数据源)。 |
+| `workspace.layout` | 频道目录布局 preset(目录探测与脚手架的数据源)。 |
 
 ## capability / credential / developer(4)
 

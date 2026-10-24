@@ -26,9 +26,9 @@ export function ZoneMap() {
       }
       intro={
         <>
-          Channek 唯一的外部依赖就是它。打开这个文件夹：一张<b className="text-ink">可分发的卡</b>
-          管「怎么做」，四个<b className="text-ink">私有创作区</b>装「做出来的一切」——辅助区在哪、
-          内容目录叫什么，都是卡的 layout 声明的，不是软件写死的。
+          Channek 唯一的外部依赖就是它。打开这个文件夹：根目录一份<b className="text-ink">可分享的频道卡</b>
+          连同 sop/ 菜谱管「怎么做」，work/ 下四个<b className="text-ink">私有创作区</b>装「做出来的一切」——除了
+          channel.json 这个名字，辅助区在哪、内容目录叫什么，都是卡的 layout 声明的，不是软件写死的。
         </>
       }
     >
@@ -75,10 +75,10 @@ export function ZoneMap() {
       >
         <span className="font-display text-3xl font-black text-mint">＂</span>
         <p className="text-lg font-bold leading-relaxed text-ink">
-          归区判据一句话：能随卡<span className="mark-yellow">分发给别人复用</span>的（流程 / 品牌 / 画风 / 组件）进风格卡；
-          你<span className="mark-mint">私有的认知与产出</span>（情报 / 选题 / 成片 / 复盘）留在内容区。
-          文件夹里还有个隐身的 <code className="rounded bg-ink px-1.5 py-0.5 font-mono text-sm text-mint">.channek/</code>
-          ——app 的工作区标记，目录自己证明自己是个频道。
+          归区判据一句话：能随卡<span className="mark-yellow">分享给别人复用</span>的（流程 / 品牌 / 画风 / 组件）进做法；
+          你<span className="mark-mint">私有的认知与产出</span>（情报 / 选题 / 成片 / 复盘）留在 work/。
+          根目录的 channel.json 让目录自己证明自己是个频道；隐身的 <code className="rounded bg-ink px-1.5 py-0.5 font-mono text-sm text-mint">.channek/</code>
+          只记这台机器上的状态，删了频道照样能开。
         </p>
       </motion.div>
     </Section>

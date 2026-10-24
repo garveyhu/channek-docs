@@ -81,7 +81,7 @@ const config: Config = {
       hideOnScroll: false,
       items: [
         { type: 'docSidebar', sidebarId: 'guide', position: 'left', label: '使用指南' },
-        { type: 'docSidebar', sidebarId: 'styleCard', position: 'left', label: '风格卡' },
+        { type: 'docSidebar', sidebarId: 'styleCard', position: 'left', label: '频道卡' },
         { type: 'docSidebar', sidebarId: 'plugin', position: 'left', label: '插件开发' },
         { type: 'docSidebar', sidebarId: 'reference', position: 'left', label: '参考' },
         {
@@ -116,7 +116,7 @@ const config: Config = {
           title: '文档',
           items: [
             { label: '使用指南', to: '/docs/guide/overview' },
-            { label: '风格卡', to: '/docs/style-card/overview' },
+            { label: '频道卡', to: '/docs/style-card/overview' },
             { label: '插件开发', to: '/docs/plugin/overview' },
             { label: '参考', to: '/docs/reference/overview' },
           ],

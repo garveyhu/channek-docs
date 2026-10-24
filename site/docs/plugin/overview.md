@@ -59,7 +59,7 @@ graph LR
 | **发布平台**对接 | [`publish.platform`](./contributions/media-publish.md) | ✅ |
 | **AI 工具 / 宏 / 受托执行** | [`ai.*`](./contributions/ai.md) | 路线图为主 |
 | **剪辑台**面板 / 检查器 / 素材源 | [`editor.*`](./contributions/editor.md) | 路线图 |
-| 携带一张**风格卡模板** / 工件类型 / 目录布局 | [`workspace.*`](./contributions/content-production.md) | 部分 ✅ |
+| 携带一张**频道卡模板** / 工件类型 / 目录布局 | [`workspace.*`](./contributions/content-production.md) | 部分 ✅ |
 
 全部 41 个贡献键的速查表见[参考 · 贡献键全表](/docs/reference/contribution-keys)。
 

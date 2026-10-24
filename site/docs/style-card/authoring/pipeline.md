@@ -13,7 +13,7 @@ sidebar_position: 3
   "template": "channek.explainer-9",   // 可选:继承一个出片模板的步序
   "steps": [                            // 有序数组;给出则整体覆盖 template 的步序
     { "key": "topic",   "step": "acme.topic" },
-    { "key": "script",  "step": "acme.script", "config": { "systemPromptRef": "prompts/script.md" } },
+    { "key": "script",  "step": "acme.script", "config": { "systemPromptRef": "sop/kit/prompts/script.md" } },
     { "key": "review",  "step": "acme.review-gate", "optional": true },
     { "key": "edit",    "step": "channek.edit" },
     { "key": "publish", "step": "acme.publish", "config": { "platforms": ["bilibili"] } }

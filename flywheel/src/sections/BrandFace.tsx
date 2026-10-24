@@ -22,8 +22,8 @@ export function BrandFace() {
       intro={
         <>
           不出真人镜头，识别就交给三样必须冻结、跨内容一致的东西：视觉、声音、认知签名。
-          它们如今全住在卡里——<b className="text-ink">brand 段锁视觉、requires 点名音色、identity 段写人设</b>，
-          所以「频道的脸」跟着卡走，可分发、可复刻。
+          它们如今全住在卡里——<b className="text-ink">brand 段锁视觉、requires 点名音色、profile 段写人设</b>，
+          所以「频道的脸」跟着卡走，可分享、可复刻——人设还能改成一道问题，让拿卡的人填自己的。
         </>
       }
     >
@@ -94,7 +94,7 @@ export function BrandFace() {
           transition={{ duration: 0.5, delay: 0.1 }}
           className="relative overflow-hidden border-[2.5px] border-ink bg-yellow p-5 shadow-[6px_6px_0_#1A1A1A]"
         >
-          <div className="kicker mb-1 !text-ink/70">③ 认知签名 · 卡 identity 段 · {BRAND.persona}</div>
+          <div className="kicker mb-1 !text-ink/70">③ 认知签名 · 卡 profile 段 · {BRAND.persona}</div>
           <p className="font-display text-lg font-black leading-tight text-ink">「{BRAND.stance}」</p>
         </motion.div>
       </div>

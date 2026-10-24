@@ -8,7 +8,7 @@ sidebar_position: 1
 
 Channek 的生态由两类可分发物组成,走同一套市场结构:
 
-| | 风格卡(`.channekcard`) | 插件(`.channekplugin`) |
+| | 频道卡(`.channekcard`) | 插件(`.channekplugin`) |
 |---|---|---|
 | 是什么 | 一套创作系统的纯数据描述 | 一份带能力的软件包 |
 | 从哪找 | 频道中心(网站 + app 内) | 插件商店(app 内) |

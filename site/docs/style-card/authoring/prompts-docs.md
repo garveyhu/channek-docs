@@ -12,19 +12,19 @@ sidebar_position: 7
 
 ```jsonc
 "prompts": {
-  "script": "prompts/script.md",       // 名字 → 卡内相对路径
-  "storyboard": "prompts/storyboard.md",
-  "review": "prompts/review.md"
+  "script": "sop/kit/prompts/script.md",       // 名字 → 频道根内相对路径
+  "storyboard": "sop/kit/prompts/storyboard.md",
+  "review": "sop/kit/prompts/review.md"
 }
 ```
 
-提示词是**纯文本文件**,住卡目录里。流程步骤的 `config` 用引用指向它们:
+提示词是**纯文本文件**,住在频道的做法那一半里(推荐 `sop/kit/prompts/`)。流程步骤的 `config` 用引用指向它们:
 
 ```jsonc
-{ "key": "script", "step": "acme.script", "config": { "systemPromptRef": "prompts/script.md" } }
+{ "key": "script", "step": "acme.script", "config": { "systemPromptRef": "sop/kit/prompts/script.md" } }
 ```
 
-为什么用引用而不是把提示词内联进 `card.json`:提示词会长、会频繁改,独立成文件才好维护、好 diff;而索引进卡,才能随卡打包分发。
+为什么用引用而不是把提示词内联进 `channel.json`:提示词会长、会频繁改,独立成文件才好维护、好 diff;而索引进卡,才能随卡打包分发。
 
 ## docs:频道知识挂载
 
@@ -32,28 +32,40 @@ sidebar_position: 7
 
 ```jsonc
 "docs": {
-  "charter": "创作宪章.md",      // 频道章程:选题口径、不可越线的约束
-  "brandSpec": "品牌规范.md",
-  "readme": "README.md"
+  "charter": "channel.md",       // 频道章程:选题口径、不可越线的约束
+  "brandSpec": "brand/品牌规范.md",
+  "readme": "sop/README.md"
 }
 ```
 
 这些文档会作为**频道知识**注入 AI 层的上下文——AI 帮你写稿、剪辑、审片时,「懂这个频道」的依据就是它们。写卡时把口径写成文档,比指望每次对话现讲一遍可靠得多。
 
 :::note
-注入 AI 上下文的卡内文档**带来源标注、用户可见可关**——这是系统对「数据也有行为面」的防线,不是对作者的不信任。写文档时按「会被完整读到」的标准写即可。
+注入 AI 上下文的频道文档**带来源标注、用户可见可关**——这是系统对「数据也有行为面」的防线,不是对作者的不信任。写文档时按「会被完整读到」的标准写即可。
 :::
 
-## skills:给 AI Agent 的方法论
+## skills 与 agent 段:给 AI Agent 的入口
 
-`layout.cardAssets.libraries.skills` 声明的目录存放**频道专属 skill**——「这个频道怎么写稿 / 怎么做封面 / 怎么发布」的操作方法论,格式面向 AI Agent(每个 skill 一个目录,内含说明文档)。
+卡的 `agent` 段声明在频道根开 AI Agent(Claude Code、Codex 等)时的三个入口:
 
-打开频道时,应用把它们(连同已启用插件自带的 skill)摆到频道根的 `.claude/skills/` 下,**由用户自己的 AI Agent 读取执行**——应用本身不执行 skill。同名时卡里的优先。
+```jsonc
+"agent": {
+  "guide": "sop/README.md",       // 工作流说明:这条流程怎么走
+  "skills": "sop/skills",         // 频道专属 skill 目录
+  "scripts": "sop/kit/scripts"    // 频道自带的脚本目录
+}
+```
 
-三者的分工一句话:**prompts 喂给流程里的某一步,docs 喂给整个 AI 层,skills 喂给用户自己的 Agent。**
+- `skills` 指向的目录存放**频道专属 skill**——「这个频道怎么写稿 / 怎么做封面 / 怎么发布」的操作方法论,格式面向 AI Agent(每个 skill 一个目录,内含说明文档)。写了它就以它为准,覆盖 `layout.cardAssets.libraries.skills`;
+- `guide` 与 `scripts` 会被写进频道根 `AGENTS.md` 托管块的「先看这里」一节:在频道根开 Agent 的人,第一眼就知道流程说明在哪、有哪些脚本可用(每个脚本开头写一句它做什么)。
+
+打开频道时,应用把频道 skill(连同已启用插件自带的 skill)挂到频道根的 `.claude/skills/` 下,**由用户自己的 AI Agent 读取执行**——应用本身不执行 skill,也不运行这些脚本;需要内核调度的脚本应该做成插件。同名时卡里的优先。
+
+三者的分工一句话:**prompts 喂给流程里的某一步,docs 喂给整个 AI 层,skills 喂给用户自己的 Agent。** skill 引用 prompts,不复制——复制就是第二个真相源,改一处忘一处。
 
 ## 写这些资产时的边界
 
-- 全部用**卡内相对路径**,不写绝对路径(schema 与导出都会拦);
+- 全部用**频道根内的相对路径**,不写绝对路径(schema 与导出都会拦);
 - 提示词与文档里别写死本机信息(路径、端口、账号)——它们会原样随卡出门;
+- 也别写死你的频道名与人设:别人用这张卡时 AI 会照着说。导出时系统会扫一遍做法文件、把这类地方指给你,建议改成通用说法;
 - 大体积媒体(参考视频、模板工程)慎入:分发体积直接决定你的卡装不装得动,见[打包 .channekcard](../distribution/packaging.md) 的瘦身原则。

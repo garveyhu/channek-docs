@@ -15,7 +15,6 @@ sidebar_position: 4
 | `V3` | 版本号:`version` 与 `minAppVersion` 必须是合法语义化版本。 | `invalid version` / `invalid minAppVersion` |
 | `V5` | 声明级(T0)插件不许携带代码类字段。 | `… is forbidden for declarative plugins` |
 | `V6` | 代码插件的入口要求:代码插件必须声明 `apiVersion 1`;沙箱级必须有 sandbox 入口;特权级必须声明 apiVersion。 | `sandboxed plugins require a sandbox entry` |
-| `V7` | 工作区 scope 的插件必须是声明级(T0)。 | `workspace plugins must be declarative` |
 | `V9` | 权限声明:必须是数组、权限名必须已知、网络权限必须合法。 | `unknown permission: …` |
 | `V11` | `contributes` 形状:必须是对象、每个键下必须是数组。 | `contributes must be an object` |
 | `V12` | 自定义扩展点:必须用自己的命名空间、`declSchema` 必须是数组。 | `custom extension point must use the …. namespace` |

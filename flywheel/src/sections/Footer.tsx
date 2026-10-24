@@ -10,12 +10,12 @@ export function Footer() {
         <p className="heading-xl mb-4 text-3xl text-paper md:text-4xl">「{BRAND.stance}」</p>
         <p className="mb-8 max-w-xl text-sm leading-relaxed text-paper/50">
           这个站把飞轮日记在 Channek 里的运转拆开摊给你看。事实源是频道的
-          <code className="mx-1 font-mono text-mint">card.json</code>
+          <code className="mx-1 font-mono text-mint">channel.json</code>
           与它点名的插件清单——改流程先改卡，这里只是它的镜子。
         </p>
         <div className="mb-8 flex flex-wrap items-center justify-center gap-2 font-mono text-[11px] text-paper/40">
           <span className="rounded-full border border-paper/20 px-3 py-1">飞轮日记</span>
-          <span className="rounded-full border border-paper/20 px-3 py-1">1 个文件夹 × 1 张卡 × 9 步</span>
+          <span className="rounded-full border border-paper/20 px-3 py-1">1 个文件夹 + 1 张卡 · 9 步</span>
           <span className="rounded-full border border-paper/20 px-3 py-1">Channek</span>
         </div>
         <a

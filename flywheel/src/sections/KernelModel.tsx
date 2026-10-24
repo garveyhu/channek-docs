@@ -59,7 +59,7 @@ export function KernelModel() {
       intro={
         <>
           Channek 就两根轴：<b className="text-ink">纵轴</b>是创作域无关的内核（三层·守规矩、不长业务），
-          <b className="text-ink">横轴</b>是一张可换的风格卡（纯数据·横着喂三层）。看懂这张图，就看懂了原理。
+          <b className="text-ink">横轴</b>是一张可换的频道卡（纯数据·横着喂三层）。看懂这张图，就看懂了原理。
         </>
       }
     >
@@ -143,14 +143,14 @@ export function KernelModel() {
           <div className="mb-3 flex items-center gap-3">
             <span className="rounded-full bg-mint px-3 py-1 font-mono text-xs font-bold text-paper">横轴</span>
             <span className="font-display text-lg font-black md:text-xl">
-              频道 = 工作区文件夹 × 一张<span className="mark-yellow">纯数据</span>的卡
+              频道 = 一个文件夹 + 根目录一份<span className="mark-yellow">纯数据</span>的卡
             </span>
           </div>
           <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
             <div className="border-[2px] border-paper/30 bg-paper/5 p-4">
-              <div className="kicker !text-mint">风格卡 · 可分发 · 恒为纯数据</div>
+              <div className="kicker !text-mint">频道卡 · 可分享 · 恒为纯数据</div>
               <p className="mt-1.5 text-[14px] leading-relaxed text-paper/85">
-                <code className="font-mono text-yellow">card.json</code>
+                <code className="font-mono text-yellow">channel.json</code>
                 声明四件事：<b className="text-paper">流程</b>（九步的步序）、<b className="text-paper">结构</b>
                 （目录与工件落点）、<b className="text-paper">风格</b>（品牌 / 音色 / 封面锁）、
                 <b className="text-paper">依赖</b>（要哪些插件与能力）。
@@ -158,7 +158,7 @@ export function KernelModel() {
               </p>
               <div className="mt-3 flex items-center gap-2 border-l-[3px] border-red pl-3">
                 <code className="font-mono text-[12px] text-red">卡内无代码</code>
-                <span className="text-[12px] text-paper/70">导入一张卡 ≠ 执行谁的代码——代码走插件的信任门</span>
+                <span className="text-[12px] text-paper/70">导入一张卡 ≠ 执行谁的代码——频道带的插件也要先过信任门</span>
               </div>
             </div>
             <div className="border-[2px] border-paper/30 bg-paper/5 p-4">

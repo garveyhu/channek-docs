@@ -41,7 +41,7 @@ SPA router stays out of the way).
 | Surface | What it covers |
 |---|---|
 | **User guide** (10 pages) | Install, open a folder, meet channels and workspaces, ship the first piece |
-| **Style cards** (15 pages) | `card.json` layer by layer, pipeline / layout / presentation / requires, portability red lines, packing `.channekcard` |
+| **Channel cards** (15 pages) | `channel.json` at the channel root layer by layer, pipeline / layout / presentation / requires, portability red lines, sharing as `.channekcard` |
 | **Plugin development** (25 pages) | Trust tiers, sandbox runtime, manifest, every contribution domain, pack & publish |
 | **Reference** (8 pages) | All 41 contribution keys, all 34 bridge ops, manifest rules, card schema, glossary |
 | **Inside the Flywheel** (`/story/`) | How one real channel runs on Channek — card-declared steps, plugin-supplied abilities, an honest progress rail |

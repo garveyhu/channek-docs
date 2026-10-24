@@ -32,7 +32,7 @@ T1 沙箱插件经 `@channek/sandbox-sdk` 的 suite 桥能调的**全部**方法
 | `content.list` | 内容条目列表。 |
 | `content.detail` | 单条内容详情。 |
 | `content.createEntry` | **写** 新建一条内容。 |
-| `card.active` | 活动风格卡的只读投影。 |
+| `card.active` | 当前频道的频道卡只读投影。 |
 | `artifact.urls` | 条目产物的授权 URL(批量)。 |
 | `pipeline.status` | 这条内容的整条灯轨状态。 |
 
@@ -86,7 +86,7 @@ T1 沙箱插件经 `@channek/sandbox-sdk` 的 suite 桥能调的**全部**方法
 | op | 干什么 |
 |---|---|
 | `artifact.mediaUrl` | 为条目内单个产物懒铸一枚授权 URL(批量口 `artifact.urls` 的逐个兜底)。 |
-| `card.updateSoundMeta` | **写** 改活动卡声音库里一条音频的说明卡(评分 / 用途 / 说明);卡 id 由宿主注入,写点遏制在声音库目录内、字段白名单。 |
+| `card.updateSoundMeta` | **写** 改当前频道卡声音库里一条音频的说明卡(评分 / 用途 / 说明);卡 id 由宿主注入,写点遏制在声音库目录内、字段白名单。 |
 
 ## 灯轨确认(3)
 

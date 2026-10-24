@@ -21,12 +21,14 @@ sidebar_position: 6
     },
     { "capability": "image", "prefer": ["acme.image-gen"] }
   ],
-  "plugins": [                             // 非 provider 类的额外插件依赖
+  "plugins": [                             // 非 provider 类的额外全局插件依赖
     { "id": "acme.review-gate", "optional": true }
   ],
   "secrets": ["llm.anthropic"]             // 作者显式补充的密钥(见下)
 }
 ```
+
+`requires` 里点名的都是**全局插件**(按 id 引用,收卡人单独安装或随包携带)。只给这个频道用的插件不写在这里,而是放进频道文件夹、在卡的顶层 `plugins` 里按路径点名——见[卡与插件的关系](../concepts/card-and-plugins.md)。
 
 ## provider:按「能力 + 偏好链」,不死绑实现
 

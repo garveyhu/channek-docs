@@ -37,7 +37,7 @@ const MODULES: ModuleEntry[] = [
     ),
   },
   {
-    title: '风格卡',
+    title: '频道卡',
     desc: '把「这类创作怎么做」写成一张可分发的卡:流程、风格、目录布局与依赖声明。',
     to: '/docs/style-card/overview',
     icon: (
@@ -90,17 +90,16 @@ function CardSnippet() {
   return (
     <figure className={styles.codePanel}>
       <figcaption className={styles.codePanelBar}>
-        <span className={styles.codePanelFile}>card.json</span>
-        <span className={styles.codePanelHint}>一张卡描述一个频道</span>
+        <span className={styles.codePanelFile}>channel.json</span>
+        <span className={styles.codePanelHint}>放在频道根,一张卡描述一个频道</span>
       </figcaption>
       <pre className={styles.codePanelBody}>
         <code>
           {'{\n'}
-          {'  '}<K>"schema"</K>: <S>"channek.stylecard"</S>,{'\n'}
-          {'  '}<K>"formatVersion"</K>: <N>2</N>,{'\n'}
-          {'  '}<K>"id"</K>: <S>"acme.talkfast"</S>,{'\n'}
+          {'  '}<K>"schema"</K>: <S>"channek.channel"</S>,{'\n'}
+          {'  '}<K>"formatVersion"</K>: <N>1</N>,{'\n'}
           {'  '}<K>"name"</K>: <S>"口播快剪"</S>,{'\n'}
-          {'  '}<K>"slug"</K>: <S>"talkfast"</S>,{'\n'}
+          {'  '}<K>"card"</K>: {'{ '}<K>"id"</K>: <S>"acme.talkfast"</S>{' },\n'}
           {'\n'}
           {'  '}<K>"pipeline"</K>: {'{\n'}
           {'    '}<K>"steps"</K>: [{'\n'}
@@ -125,8 +124,8 @@ function CardSnippet() {
 export default function Home() {
   return (
     <Layout
-      description="Channek 开发者文档:风格卡与插件开发的完整指南——流程写在卡里,能力来自插件。"
-      title="风格卡与插件开发指南"
+      description="Channek 开发者文档:频道卡与插件开发的完整指南——流程写在卡里,能力来自插件。"
+      title="频道卡与插件开发指南"
     >
       <main className={styles.page}>
         <header className={styles.hero}>
@@ -139,7 +138,7 @@ export default function Home() {
             </h1>
             <p className={styles.sub}>
               Channek
-              打开一个文件夹,把创作从想法管到发布。「怎么做」写在可分发的风格卡里,能力由插件贡献——这里是把两者做出来的全部文档。
+              打开一个文件夹,把创作从想法管到发布。「怎么做」写在可分发的频道卡里,能力由插件贡献——这里是把两者做出来的全部文档。
             </p>
             <div className={styles.ctaRow}>
               <Link className={styles.ctaPrimary} to="/docs/guide/overview">

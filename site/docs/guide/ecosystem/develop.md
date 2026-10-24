@@ -8,7 +8,7 @@ sidebar_position: 2
 
 Channek 的一切可变能力都长在生态上——你完全可以自己造。有两条路:
 
-- **自己读手册写**:[风格卡开发](/docs/style-card/overview)(纯数据,会写 JSON 就能上手)、
+- **自己读手册写**:[频道卡开发](/docs/style-card/overview)(纯数据,会写 JSON 就能上手)、
   [插件开发](/docs/plugin/overview)(从零到发布的完整路径)、[契约参考](/docs/reference/overview)。
 - **让你的 AI 助手替你写(推荐)**:装官方 agent skills,然后用大白话提需求就行——不需要先看懂
   任何一页手册。下面展开这条路。
@@ -21,9 +21,8 @@ Channek 的卡格式、插件协议与全部扩展点契约——不用你把文
 
 | skill | 装了它,你的 AI 就会 |
 |---|---|
-| `channek-card-dev` | 替你写、改、校验一张风格卡,并打包成 `.channekcard` 分发 |
+| `channek-card-dev` | 替你做一个频道:写、改、校验频道卡 `channel.json`,并打包成 `.channekcard` 分发 |
 | `channek-plugin-dev` | 替你开发插件:选形态、写 manifest、实现、调试、打包发布 |
-| `channek-extension-points` | 秒答「这个功能该插在哪 / 能不能做」,附全部契约速查表 |
 
 ## 安装
 
@@ -35,7 +34,7 @@ cd channek-skills
 
 # 装进你的项目(推荐)
 mkdir -p <你的项目>/.claude/skills
-for s in channek-card-dev channek-plugin-dev channek-extension-points; do
+for s in channek-card-dev channek-plugin-dev; do
   ln -s "$(pwd)/$s" <你的项目>/.claude/skills/
 done
 ```
@@ -46,7 +45,7 @@ done
 
 不用背术语,用你自己的话讲就行:
 
-> 「帮我写一张风格卡:我做美食探店视频,流程是选店、写脚本、实拍粗剪、配音、发布。」
+> 「帮我做一个 Channek 频道:我做美食探店视频,流程是选店、写脚本、实拍粗剪、配音、发布。」
 >
 > 「我想给 Channek 加一个功能:把成片自动传到我的网盘。」
 >

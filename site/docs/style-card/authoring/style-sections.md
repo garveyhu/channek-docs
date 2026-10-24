@@ -27,7 +27,7 @@ style 层回答「这个频道的产出长什么样、听起来什么样」。�
   "mascot": {                                // 可选:IP 形象档案
     "name": "阿黑",
     "visualPrompt": "…",                     // 生成该形象时的锚定描述
-    "assetRef": "品牌套件/ip/阿黑"           // 卡内相对路径
+    "assetRef": "brand/ip/阿黑"              // 频道根内相对路径
   }
 }
 ```
@@ -75,12 +75,12 @@ style 层回答「这个频道的产出长什么样、听起来什么样」。�
 ## captions 字幕 · cover 封面 · audio 混音
 
 - `captions`:是否高亮、最大行数、每行词数、描边风格(`none` / `soft` / `hard` / `pill`);
-- `cover`:封面生成配置文件的卡内路径(`config`),规则复杂所以放独立文件;
+- `cover`:封面生成配置文件的路径(`config`,相对频道根),规则复杂所以放独立文件;
 - `audio`:垫乐(`bed`)、首尾呼吸留白(`headBreath` / `tailBreath`)、TTS 细调参数。
 
 ## libraries 素材索引
 
-卡内素材库的**索引条目**(声音 / 素材 / 场景 / 复用片段),每条 `{ key, path, kind?, name? }`,路径是卡内相对路径。素材库目录本身在哪,由 `layout.cardAssets.libraries` 声明(见[layout 与工件](./layout-artifacts.md))。
+频道素材库的**索引条目**(声音 / 素材 / 场景 / 复用片段),每条 `{ key, path, kind?, name? }`,路径相对频道根。素材库目录本身在哪,由 `layout.cardAssets.libraries` 声明(见[layout 与工件](./layout-artifacts.md))。
 
 ## generation 生成默认
 
@@ -92,7 +92,7 @@ style 层回答「这个频道的产出长什么样、听起来什么样」。�
 
 ## docs 文档挂载 · platforms 平台
 
-- `docs`:频道章程(`charter`)、IP 简报(`ipBrief`)、品牌规范(`brandSpec`)等文档的卡内路径——这些会作为「频道知识」提供给 AI 层,让 AI 干活时懂这个频道的口径;
+- `docs`:频道章程(`charter`)、IP 简报(`ipBrief`)、品牌规范(`brandSpec`)等文档的路径(相对频道根)——这些会作为「频道知识」提供给 AI 层,让 AI 干活时懂这个频道的口径;
 - `platforms`:各发布平台的开关与配置(`{ "<平台键>": { "enabled": true, … } }`),平台清单由发布插件定义,卡不收窄。
 
 :::note

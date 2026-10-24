@@ -17,7 +17,7 @@
 
 > ### 开放面被写下来的那一半
 > [Channek](https://www.channek.com) 内核闭源，**格式与协议规范公开**——卡格式、
-> 插件 manifest、每一个扩展点契约。这个仓库就是把那份开放面写给人读的地方：怎么写一张风格卡、
+> 插件 manifest、每一个扩展点契约。这个仓库就是把那份开放面写给人读的地方：怎么写一张频道卡、
 > 怎么造一个插件、以及所有你会想查的契约表。
 > 线上在 **[docs.channek.com](https://docs.channek.com)**；写给 AI 的另一册是
 > [channek-skills](https://github.com/garveyhu/channek-skills)。
@@ -38,7 +38,7 @@ flywheel/      # 《飞轮的内部》——自带孟菲斯视觉系统的滚动
 | 面 | 讲什么 |
 |---|---|
 | **使用指南**（10 篇） | 安装、打开一个文件夹、认识频道与工作区、把第一条内容跑起来 |
-| **风格卡**（15 篇） | `card.json` 逐层过、pipeline / layout / presentation / requires、可移植红线、打包 `.channekcard` |
+| **频道卡**（15 篇） | 根目录 `channel.json` 逐层过、pipeline / layout / presentation / requires、可移植红线、打包 `.channekcard` |
 | **插件开发**（25 篇） | 信任分级、沙箱运行时、manifest、各贡献域、打包与发布 |
 | **参考**（8 篇） | 全部 41 个贡献键、34 条桥操作、清单校验规则、卡 schema、术语表 |
 | **飞轮的内部**（`/story/`） | 一个真实频道在 Channek 上怎么运转——卡声明流程、插件供给能力、诚实灯轨 |

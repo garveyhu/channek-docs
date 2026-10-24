@@ -1,6 +1,6 @@
 /**
  * 工作流数据 —— 全站渲染的单一事实源。
- * 内容提炼自飞轮日记频道的风格卡（card.json 的 pipeline / layout / requires 声明）
+ * 内容提炼自飞轮日记频道的频道卡（channel.json 的 pipeline / layout / requires 声明）
  * 与它点名的插件清单。改这里 = 改全站讲解；不在组件里散写文案。
  *
  * 脱敏铁律：只讲工件类型 + 格式，骨架用 <...> 抽象；
@@ -18,21 +18,21 @@ export interface Zone {
   accent: BrandColor;
 }
 
-/** 频道文件夹摊开看：一张可分发的卡 + 四个私有创作区（卡 layout.sections 声明的辅助区） */
+/** 频道文件夹摊开看：根目录一份频道卡 + sop/ 菜谱（可分享）+ work/ 下四个私有创作区（卡 layout 声明的内容目录与辅助区） */
 export const ZONES: Zone[] = [
   {
     id: '卡',
-    name: '风格卡/',
-    role: '频道的说明书 · 可分发',
-    desc: '一张纯数据的卡：身份与人设、品牌 token、九步流程、目录结构、依赖清单。换一张卡 = 换一套工作方式，这一区能单独打包分享。',
-    examples: ['card.json', '创作宪章', '品牌套件', 'prompts/'],
+    name: 'channel.json + sop/',
+    role: '频道卡与菜谱 · 可分享',
+    desc: '根目录一份纯数据的频道卡：人设、品牌 token、九步流程、目录结构、依赖清单；sop/ 里是菜谱——流程说明、skill、提示词、质检教训。分享时拷走的就是这一半，作品与人设留在你这儿。',
+    examples: ['channel.json', '创作宪章', 'brand/', 'sop/'],
     accent: 'yellow',
   },
   {
     id: '情',
     name: '情报库',
     role: '上游弹药 · 私有',
-    desc: '要消化才能变现的认知与情报：雷达、深读、信息差、灵感。它们喂选题，但永不进卡分发。',
+    desc: '要消化才能变现的认知与情报（work/intel/）：雷达、深读、信息差、灵感。它们喂选题，但永不进卡包。',
     examples: ['前沿雷达', '深读笔记', '灵感库'],
     accent: 'blue',
   },
@@ -40,7 +40,7 @@ export const ZONES: Zone[] = [
     id: '选',
     name: '选题库',
     role: '立项台账 · 私有',
-    desc: '被打磨成「值得做」的题在这里排队。复盘的信号也回写到这里——赢家升权、翻车降权。',
+    desc: '被打磨成「值得做」的题在这里排队（work/inbox/）。复盘的信号也回写到这里——赢家升权、翻车降权。',
     examples: ['选题库索引', '评分', '排期'],
     accent: 'ink',
   },
@@ -48,7 +48,7 @@ export const ZONES: Zone[] = [
     id: '台',
     name: '内容工作台',
     role: '流水线工位 · 私有',
-    desc: '每条内容一个目录：选题卡、脚本、工程、素材、配音、字幕、母版、分发……九步的全部工件都落在这里，灯轨读的就是这些文件。',
+    desc: '每条内容一个目录（work/runs/<日期-slug>/）：选题卡、脚本、工程、素材、配音、字幕、母版、分发……九步的全部工件都落在这里，灯轨读的就是这些文件。',
     examples: ['选题卡.md', '脚本.md', '工程/', '母版/'],
     accent: 'mint',
   },
@@ -56,7 +56,7 @@ export const ZONES: Zone[] = [
     id: '复',
     name: '运营复盘',
     role: '数据闭环 · 私有',
-    desc: '发布后的数据抄回来，聚合成看板，反哺下一轮选题。飞轮能越转越省力，靠的是这一区回来的信号。',
+    desc: '发布后的数据抄回来（work/review/），聚合成看板，反哺下一轮选题。飞轮能越转越省力，靠的是这一区回来的信号。',
     examples: ['台账', '看板', '复盘记录'],
     accent: 'red',
   },
@@ -571,7 +571,7 @@ angle: <角度>   hook: <钩子>
   },
   {
     name: '卡的 pipeline 段',
-    format: 'card.json · 纯数据声明',
+    format: 'channel.json · 纯数据声明',
     code: `"pipeline": {
   "template": "channek.explainer-9",
   "steps": [
@@ -585,7 +585,7 @@ angle: <角度>   hook: <钩子>
   },
   {
     name: '卡的 layout.artifacts 覆盖',
-    format: 'card.json · kind → 落点',
+    format: 'channel.json · kind → 落点',
     code: `"layout": {
   "contentDir": "<内容目录>",
   "artifacts": {
@@ -613,7 +613,7 @@ export const REPLICATE = [
   {
     n: '①',
     title: '打包',
-    desc: '风格卡导出成一个组合包（.channekcard）：卡本体 + 依赖清单，可随包携带配套插件。卡里绝无密钥、绝无机器路径——它在谁的电脑上都活。',
+    desc: '频道导出成一个组合包（.channekcard）：拷走的是做法——频道卡、菜谱、频道插件，可随包携带配套插件；作品与人设留在你这儿。卡里绝无密钥、绝无机器路径——它在谁的电脑上都活。',
     accent: 'yellow' as BrandColor,
   },
   {
@@ -625,7 +625,7 @@ export const REPLICATE = [
   {
     n: '③',
     title: '转起来',
-    desc: '选个文件夹，按卡的 layout 搭好骨架，同一套九步灯轨在他的机器上开始转——这页讲的一切，他都拿到了。',
+    desc: '做法拷进一个新文件夹，填几道人设题，按卡的 layout 搭好骨架，同一套九步灯轨在他的机器上开始转——这页讲的一切，他都拿到了。',
     accent: 'mint' as BrandColor,
   },
 ];

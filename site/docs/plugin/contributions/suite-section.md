@@ -1,6 +1,6 @@
 ---
 title: 整页功能区
-description: ui.suiteSection 让你给 app 贡献一整页界面——挂进左缘导航、由风格卡决定启不启用,纯 T1 就能做完整功能区。
+description: ui.suiteSection 让你给 app 贡献一整页界面——挂进左缘导航、由频道卡决定启不启用,纯 T1 就能做完整功能区。
 sidebar_position: 6
 ---
 
@@ -46,7 +46,7 @@ acme.fan-ops/
 
 ## 区什么时候出现:卡说了算
 
-哪些区启用、顺序、默认区由**活动风格卡的 `presentation.sections`** 决定(数组序 = 导航序):
+哪些区启用、顺序、默认区由**当前频道卡的 `presentation.sections`** 决定(数组序 = 导航序):
 
 ```json
 { "presentation": { "sections": [{ "id": "homes" }, { "id": "acme.fan-ops.assets" }],

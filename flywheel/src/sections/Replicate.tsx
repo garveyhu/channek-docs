@@ -65,7 +65,7 @@ export function Replicate() {
             想做一张自己的卡，或给 Channek 写一个插件？
           </p>
           <p className="mt-1 text-sm text-paper/60">
-            风格卡格式、插件扩展点、打包分发——开发者文档里全都有。
+            频道卡格式、插件扩展点、打包分发——开发者文档里全都有。
           </p>
         </div>
         <a

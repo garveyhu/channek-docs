@@ -6,7 +6,7 @@ sidebar_position: 1
 
 # 参考区说明
 
-这一区是**速查表**,不是教程——按表找答案,讲解去[风格卡开发](/docs/style-card/overview)与[插件开发](/docs/plugin/overview)。
+这一区是**速查表**,不是教程——按表找答案,讲解去[频道卡开发](/docs/style-card/overview)与[插件开发](/docs/plugin/overview)。
 
 | 表 | 查什么 |
 |---|---|
@@ -14,7 +14,7 @@ sidebar_position: 1
 | [沙箱桥方法全表](/docs/reference/suite-bridge-ops) | T1 沙箱插件能调的全部宿主方法(34 条,封闭白名单) |
 | [清单校验规则](/docs/reference/manifest-rules) | `manifest.json` 被拒时的规则编号与含义 |
 | [主题 token](/docs/reference/theme-tokens) | 插件界面可用的全套 `--ck-*` 设计变量 |
-| [风格卡字段速查](/docs/reference/card-schema) | 卡 `card.json` 的分层与全部段名 |
+| [频道卡字段速查](/docs/reference/card-schema) | 频道卡 `channel.json` 的全部字段(由 app 源码生成) |
 | [.channek 工程格式](/docs/reference/project-format) | 时间轴工程文件的公开规范要点 |
 | [术语表](/docs/reference/glossary) | 全站名词的一句话定义 |
 

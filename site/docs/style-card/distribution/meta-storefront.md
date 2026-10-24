@@ -17,10 +17,10 @@ sidebar_position: 2
   "author": "acme",
   "license": "CC-BY-4.0",
   "description": "口播快剪频道模板:6 步流水线 + 暖砂视觉",   // 一句话简介
-  "icon": "assets/icon.png",                  // 卡内相对路径
-  "cover": "https://cdn.example.com/cover.png",   // 封面:外链或卡内路径
+  "icon": "brand/icon.png",                   // 频道根内相对路径
+  "cover": "https://cdn.example.com/cover.png",   // 封面:外链或频道根内路径
   "trailer": "https://cdn.example.com/trailer.mp4", // 预告片:建议外链(视频进包会拖垮体积)
-  "preview": ["assets/preview-1.png"],        // 截图廊:外链或卡内路径
+  "preview": ["brand/preview-1.png"],         // 截图廊:外链或频道根内路径
   "homepage": "https://example.com/talking-head",  // 这张卡的门面页
   "repository": "https://github.com/acme/talking-head-card",  // 源码仓库(与 homepage 分开)
   "authorUrl": "https://github.com/acme"      // 作者主页(指向人,不是卡)
@@ -30,8 +30,8 @@ sidebar_position: 2
 解析规则:
 
 - **外链原样用**(平台不托管、不代理),且只认 `http(s)`;
-- **卡内相对路径**由平台从包里取出托管——作者没有 CDN 也能发;
-- 路径一律遏制在卡根内,`..` 与绝对路径不认;
+- **频道根内的相对路径**由平台从包里取出托管——作者没有 CDN 也能发;
+- 路径一律遏制在频道根内,`..` 与绝对路径不认;
 - 两者都没声明,才轮到发布表单上传的文件兜底。
 
 `homepage` / `repository` / `authorUrl` 分三个字段不是啰嗦:一个指向卡的门面、一个指向代码与历史、一个指向作者本人——详情页上是三行不同的字,合成一个就只能猜着显示。
@@ -43,12 +43,12 @@ sidebar_position: 2
 | 文件 | 读者 | 回答什么 |
 |---|---|---|
 | `STOREFRONT.md` | **还没买的人** | 这套做法是什么、做出来长什么样、适合谁、带走的是什么 |
-| `README.md` | 拿到卡之后的人 | 目录怎么用、要装什么、怎么跑起来 |
+| `README.md`(如 `sop/README.md`) | 拿到卡之后的人 | 目录怎么用、要装什么、怎么跑起来 |
 | 创作宪章 / 风格锁文档 | 执行时的人与 AI | 这个频道的口径与不可越线的约束 |
 
 规则:
 
-- 位置:卡根 `STOREFRONT.md`(也认 `市场介绍.md`);想放别处就在 `meta.storefront` 写卡内相对路径;
+- 位置:频道根 `STOREFRONT.md`(也认 `市场介绍.md`);想放别处就在 `meta.storefront` 写频道根内的相对路径;
 - 发布时由平台**从包内读**,表单传不进来——同「页面与包对得上」的原则;
 - 缺这份文件不拒绝发布,商品页退回只显示一句 `description`;**绝不拿 README 顶替**——那是拿开发者文档去卖货,读者对不上;
 - 上限 256KB;渲染时做安全净化,不支持内嵌 HTML;
