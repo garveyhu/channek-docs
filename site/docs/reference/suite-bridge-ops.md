@@ -32,7 +32,7 @@ T1 沙箱插件经 `@channek/sandbox-sdk` 的 suite 桥能调的**全部**方法
 | `content.list` | 内容条目列表。 |
 | `content.detail` | 单条内容详情。 |
 | `content.createEntry` | **写** 新建一条内容。 |
-| `card.active` | 当前频道的频道卡只读投影。 |
+| `card.active` | 当前频道的频道卡只读投影,字段名与频道卡一致:`id`(= `card.id`)、`name`、`slug`、`version`(= `card.version`,未声明为 null)、`sections`、`defaultSection`、可选的 `profile` / `platforms` / `docRefs`。 |
 | `artifact.urls` | 条目产物的授权 URL(批量)。 |
 | `pipeline.status` | 这条内容的整条灯轨状态。 |
 

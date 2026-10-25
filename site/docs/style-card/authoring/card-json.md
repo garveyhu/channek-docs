@@ -1,19 +1,19 @@
 ---
 title: channel.json 结构总览
-description: 必填只有三个字段,其余全是可选段——卡的身份与频道的身份分开记,段内严校验规则。
+description: 必填只有四个字段,其余全是可选段——卡的身份与频道的身份分开记,段内严校验规则。
 sidebar_position: 1
 ---
 
 # channel.json 结构总览
 
-一张卡的本体是频道根目录的 `channel.json`——只能叫这个名、只能放在频道根。**必填收缩到最小**,只有三个字段;写给别人用的卡再加一个 `card.id`:
+一张卡的本体是频道根目录的 `channel.json`——只能叫这个名、只能放在频道根,app 只认这一份。**必填收缩到最小**,只有四个字段:
 
 ```jsonc
 {
   "schema": "channek.channel",               // 固定值
   "formatVersion": 1,                         // 固定值
   "name": "口播快剪",                          // 显示名
-  "card": { "id": "acme.talkfast", "version": "1.0.0" }   // 卡自己的身份(<发布者>.<名字>)
+  "card": { "id": "acme.talkfast", "version": "1.0.0" }   // 卡自己的身份(<发布者>.<名字>);card.id 必填
 }
 ```
 
@@ -23,8 +23,8 @@ sidebar_position: 1
 
 | 字段 | 是谁的身份 | 谁来写 |
 |---|---|---|
-| `card.id` | **卡自己**:`<发布者>.<名字>` 点分小写(`channek.*` 保留给官方)。血缘、市场、「从原卡更新」都认它 | 作者写;写给别人用的卡必须有 |
-| 顶层 `id` / `slug` | **这个频道在某台机器上**的身份(`id` 以 `ws_` 开头) | app 首次打开时生成并写回;不用手写,分享时也不带走 |
+| `card.id` | **卡自己**:`<发布者>.<名字>` 点分小写(`channek.*` 保留给官方)。血缘、市场、「从原卡更新」都认它;`card` 段里还可以写 `slug` / `version` / `face` / `createdAt` / `modifiedAt` | 作者写;必填 |
+| 顶层 `id` / `slug` | **这个频道在某台机器上**的身份(`id` 是 `ws_` 加 12 位) | app 首次打开时生成并写回;不用手写,导出卡包、用卡建新频道时剥掉 |
 
 为什么分成两个:同一张卡可以开出很多个频道(你自己开第二个号、别人拿去用),卡的身份要在所有这些频道之间保持一致,频道的身份要各不相同——塞进一个字段,分享和复刻就一定有一边是错的。
 
@@ -35,7 +35,7 @@ sidebar_position: 1
 | 层 | 段 | 回答什么 |
 |---|---|---|
 | **这是个什么频道** | `profile` `format` | `profile`:定位、受众、人设、口号、简介;`format`:成片形态的三个枚举(横竖屏 / 出镜方式 / 字幕粒度),写了就三个全写 |
-| **style 风格** | `brand` `locks` `voice` `captions` `cover` `audio` `libraries` `generation` `freeze` `docs` `platforms` `publish` | 品牌 token、画风锁、音色档、字幕、封面、混音、素材索引、生成默认、冻结闸、文档挂载 |
+| **style 风格** | `brand` `locks` `voice` `captions` `cover` `audio` `libraries` `generation` `freeze` `docs` `platforms` | 品牌 token、画风锁、音色档、字幕、封面、混音、素材索引、生成默认、冻结闸、文档挂载、平台 |
 | **process 流程** | `pipeline` `layout` `editor` `prompts` `config` | 步序与每步配置、目录布局与工件位置、剪辑台预设、提示词资产索引、卡自声明的可编辑配置面(设置页按它渲染表单) |
 | **presentation 呈现** | `presentation` | 频道界面启用哪些功能区、默认落在哪 |
 
@@ -53,6 +53,10 @@ sidebar_position: 1
 | `bundle` | 分发清单:打包时不带什么(`omit`)、随卡示例内容(`demo`) | [打包 .channekcard](../distribution/packaging.md) |
 
 卡里写的所有路径都是**频道根内的相对路径**(频道卡的卡根就是频道根)——绝对路径与含 `..` 的路径会被校验拒绝。
+
+内核要读的创作参数(画风锁、配音、字幕、冻结闸、发布账号)**只认 `config` 段里的声明**——用约定的 key(如 `channek.visual.imagePrompt`)声明了才算数;style 段写了照样合法,但不会替 `config` 兜底。
+
+频道的**宪章**(定位、红线、口吻)不进卡:它写在频道根 `AGENTS.md` 托管块下方的手写区,见 [prompts 与频道知识](./prompts-docs.md)。
 
 ## 段内严校验
 

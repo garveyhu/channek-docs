@@ -25,7 +25,7 @@ export const ZONES: Zone[] = [
     name: 'channel.json + sop/',
     role: '频道卡与菜谱 · 可分享',
     desc: '根目录一份纯数据的频道卡：人设、品牌 token、九步流程、目录结构、依赖清单；sop/ 里是菜谱——流程说明、skill、提示词、质检教训。分享时拷走的就是这一半，作品与人设留在你这儿。',
-    examples: ['channel.json', '创作宪章', 'brand/', 'sop/'],
+    examples: ['channel.json', 'AGENTS.md（宪章）', 'brand/', 'sop/'],
     accent: 'yellow',
   },
   {
@@ -106,7 +106,7 @@ export const STAGES: Stage[] = [
     artifact: '口播稿',
     oneLiner: '把选题写成一篇考究的口播稿——它同时是旁白与分镜的上游。',
     detail:
-      '创作步的工作台由 links.production 插件贡献：左边写稿、右边吃卡里的创作宪章与 prompt 资产。稿子落成 markdown 工件，下游的分镜、配音、字幕全都从它长出来。',
+      '创作步的工作台由 links.production 插件贡献：左边写稿、右边吃频道的创作宪章（AGENTS.md 手写区）与卡里的 prompt 资产。稿子落成 markdown 工件，下游的分镜、配音、字幕全都从它长出来。',
   },
   {
     index: 3,

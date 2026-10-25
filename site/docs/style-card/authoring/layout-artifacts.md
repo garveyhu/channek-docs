@@ -69,7 +69,7 @@ kind 的默认 pattern(注册该 kind 的插件声明)
       "skills": "sop/skills",       // 频道专属 skill 目录(给用户的 AI Agent 读;卡写了 agent.skills 时以它为准)
       "fonts": "fonts"              // 卡自带字型目录
     },
-    "docs": { "docs.charter": "channel.md" },    // 文档挂载:卡字段 → 频道根内路径
+    "docs": { "docs.brandSpec": "brand/品牌规范.md" },    // 文档挂载:卡字段 → 频道根内路径
     "brandAssets": {
       "root": "brand",
       "avatar": ["头像/main.png", "头像/fallback.png"]   // 有序候选,按序回落

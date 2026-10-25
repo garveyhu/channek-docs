@@ -1,6 +1,6 @@
 ---
 title: 频道卡字段速查
-description: 频道卡 channel.json 的全部字段:缺一个就读不通的 3 个、写了某段就必须写全的、全部字段——由 app 源码生成。
+description: 频道卡 channel.json 的全部字段:缺一个就读不通的 5 个、写了某段就必须写全的、全部字段——由 app 源码生成。
 sidebar_position: 6
 ---
 
@@ -10,14 +10,14 @@ sidebar_position: 6
 本页表格由 app 源码生成,随 app 版本更新——字段、必填、枚举以这里为准。每一段为什么这么设计、怎么写,见[频道卡开发](/docs/style-card/overview)。
 :::
 
-由 `@channek/style-card` 的频道卡外壳 schema 与 `styleCardSchema` 直接生成，**和 app 读卡时用的是同一份判据**。
+由 `@channek/style-card` 的 `styleCardSchema` 直接生成，**和 app 读卡时用的是同一份判据**。
 写完卡用 `channek check <频道目录>` 验一遍：它报的字段路径就是这张表里的路径。
 
 身份两件事分开：顶层 `id` / `slug` 是**这个频道在这台机器上**的身份，app 首次打开时生成并写回，
-分发的卡里不写；`card.id` 是**卡自己**的身份（`<发布者>.<名字>`），血缘、市场、「从原卡更新」都认它——
-两者至少要有一个，写给别人用的卡写 `card.id`。
+导出卡包、拿卡建新频道时会被剥掉，所以手写的卡里不用写；`card.id` 是**卡自己**的身份
+（`<发布者>.<名字>`），血缘、市场、「从原卡更新」都认它，必填。`card.slug` 不写就取 `card.id` 最后一段。
 
-## 缺一个就读不通的字段（共 3 个）
+## 缺一个就读不通的字段（共 5 个）
 
 「必填」只在父级存在时才生效；这里列的是**整条链都必填**的——一张最小的卡恰好只要这些。
 
@@ -26,6 +26,8 @@ sidebar_position: 6
 | `schema` | 必填 | `"channek.channel"` |
 | `formatVersion` | 必填 | `1` |
 | `name` | 必填 | string |
+| `card` | 必填 | object |
+| `card.id` | 必填 | string |
 
 ## 写了某一段，就必须写全的字段（共 91 个）
 
@@ -34,8 +36,6 @@ sidebar_position: 6
 
 | 字段路径 | | 类型 / 取值 |
 |---|---|---|
-| `questions.<键>` | 必填 | object |
-| `questions.<键>.label` | 必填 | string |
 | `format.orientation` | 必填 | `landscape` / `portrait` / `square` |
 | `format.persona` | 必填 | `none` / `avatar` / `real` |
 | `format.captions` | 必填 | `sentence` / `word` / `none` |
@@ -125,8 +125,10 @@ sidebar_position: 6
 | `runtime.endpoints[].id` | 必填 | string |
 | `runtime.endpoints[].setup.options[]` | 必填 | object |
 | `runtime.endpoints[].setup.options[].label` | 必填 | string |
+| `questions.<键>` | 必填 | object |
+| `questions.<键>.label` | 必填 | string |
 
-## 全部字段（共 313 个）
+## 全部字段（共 308 个）
 
 `[]` = 数组里的每一项，`<键>` = 由你起名的键。某个段写了，它下面标「必填」的就都得写。
 
@@ -137,25 +139,14 @@ sidebar_position: 6
 | `id` | 可选 | string |
 | `slug` | 可选 | string |
 | `name` | 必填 | string |
-| `card` | 可选 | object |
-| `card.id` | 可选 | string |
+| `card` | 必填 | object |
+| `card.id` | 必填 | string |
 | `card.slug` | 可选 | string |
 | `card.version` | 可选 | string |
 | `card.face` | 可选 | string |
 | `card.createdAt` | 可选 | string |
 | `card.modifiedAt` | 可选 | string |
-| `profile` | 可选 | `{ [键]: 任意 }` |
-| `format` | 可选 | `{ [键]: 任意 }` |
-| `plugins` | 可选 | string[] |
-| `agent` | 可选 | object |
-| `agent.guide` | 可选 | string |
-| `agent.skills` | 可选 | string |
-| `agent.scripts` | 可选 | string |
-| `questions` | 可选 | `{ [键]: object }` |
-| `questions.<键>` | 必填 | object |
-| `questions.<键>.label` | 必填 | string |
-| `questions.<键>.example` | 可选 | string |
-| `questions.<键>.optional` | 可选 | boolean |
+| `profile` | 可选 | object |
 | `profile.niche` | 可选 | string |
 | `profile.audience` | 可选 | string |
 | `profile.persona` | 可选 | string |
@@ -164,6 +155,7 @@ sidebar_position: 6
 | `profile.bio` | 可选 | string |
 | `profile.mindWord` | 可选 | string |
 | `profile.strategy` | 可选 | string |
+| `format` | 可选 | object |
 | `format.orientation` | 必填 | `landscape` / `portrait` / `square` |
 | `format.also` | 可选 | `landscape` / `portrait` / `square`[] |
 | `format.persona` | 必填 | `none` / `avatar` / `real` |
@@ -304,7 +296,6 @@ sidebar_position: 6
 | `freeze.visualStyle` | 必填 | boolean |
 | `freeze.frozenAt` | 可选 | string |
 | `docs` | 可选 | object |
-| `docs.charter` | 可选 | string |
 | `docs.ipBrief` | 可选 | string |
 | `docs.brandSpec` | 可选 | string |
 | `docs.readme` | 可选 | string |
@@ -314,10 +305,6 @@ sidebar_position: 6
 | `platforms.<键>.reframe` | 可选 | string |
 | `platforms.<键>.category` | 可选 | string |
 | `platforms.<键>.metadata` | 可选 | `{ [键]: 任意 }` |
-| `publish` | 可选 | object |
-| `publish.profileDir` | 可选 | string |
-| `publish.debugPort` | 可选 | integer |
-| `publish.accounts` | 可选 | string[] |
 | `secretsNeeded` | 可选 | string[] |
 | `pipeline` | 可选 | object |
 | `pipeline.template` | 可选 | string |
@@ -444,4 +431,14 @@ sidebar_position: 6
 | `runtime.endpoints[].example` | 可选 | string |
 | `runtime.endpoints[].description` | 可选 | string |
 | `pluginSettings` | 可选 | `{ [键]: { [键]: 任意 } }` |
+| `plugins` | 可选 | string[] |
+| `agent` | 可选 | object |
+| `agent.guide` | 可选 | string |
+| `agent.skills` | 可选 | string |
+| `agent.scripts` | 可选 | string |
+| `questions` | 可选 | `{ [键]: object }` |
+| `questions.<键>` | 必填 | object |
+| `questions.<键>.label` | 必填 | string |
+| `questions.<键>.example` | 可选 | string |
+| `questions.<键>.optional` | 可选 | boolean |
 | `metadata` | 可选 | `{ [键]: 任意 }` |

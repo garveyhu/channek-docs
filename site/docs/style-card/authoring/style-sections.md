@@ -8,6 +8,12 @@ sidebar_position: 2
 
 style 层回答「这个频道的产出长什么样、听起来什么样」。每段都可选,按你的频道需要挑着写。
 
+:::info 内核读的值只认 config
+画风锁、默认音色与配速、字幕样式、冻结闸、发布账号这几样**内核要读的值**,只认卡 `config` 段里用约定 key 声明的那一项
+(如 `channek.visual.imagePrompt`、`channek.voice.default`、`channek.freeze.voice`)。下面这些 style 段写了照样合法,
+但**不会替 `config` 兜底**——没在 `config` 里声明,内核就当没有。
+:::
+
 ## brand 品牌
 
 品牌的**冻结 token**:色板、字体、描边、圆角、栅格,以及可选的 IP 吉祥物档案。
@@ -34,7 +40,7 @@ style 层回答「这个频道的产出长什么样、听起来什么样」。�
 
 ## locks 画风与声线锁
 
-**生成一致性的锚**。`visualStyle` 锁视觉(生成后端、种子、风格提示词、负面提示词),`motionSound` 锁声音质感与转场语言。所有生成步都该从这里取锚,而不是各步自己发挥。
+`visualStyle` 记视觉(生成后端、种子、风格提示词、负面提示词),`motionSound` 记声音质感与转场语言,`*.docRef` 指向人读的锁文档。要让生成链真正按画风锁出图,在 `config` 里声明 `channek.visual.imagePrompt` / `negativePrompt` / `seed` / `sref`——内核只从那里取锚。
 
 ```jsonc
 "locks": {
@@ -92,9 +98,10 @@ style 层回答「这个频道的产出长什么样、听起来什么样」。�
 
 ## docs 文档挂载 · platforms 平台
 
-- `docs`:频道章程(`charter`)、IP 简报(`ipBrief`)、品牌规范(`brandSpec`)等文档的路径(相对频道根)——这些会作为「频道知识」提供给 AI 层,让 AI 干活时懂这个频道的口径;
+- `docs`:IP 简报(`ipBrief`)、品牌规范(`brandSpec`)、卡的 README(`readme`)等文档的路径(相对频道根)——这些会作为「频道知识」提供给 AI 层,让 AI 干活时懂这个频道的口径。频道宪章不在这里,它写在 `AGENTS.md` 的手写区;
 - `platforms`:各发布平台的开关与配置(`{ "<平台键>": { "enabled": true, … } }`),平台清单由发布插件定义,卡不收窄。
 
 :::note
-`publish.profileDir`(浏览器登录态目录)是机器特定字段,可以在本机用,但导出时会被剥离——别指望它跟卡走。
+发布用的浏览器接线(登录态目录、调试端口)是这台机器的事,住频道的本机状态目录 `.channek/`,不进卡;
+「这个频道在哪些平台有号」是创作事实,写成 `config` 里的 `channek.publish.accounts`。
 :::

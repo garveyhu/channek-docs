@@ -20,7 +20,6 @@ sidebar_position: 1
 
 - `voice.profiles.*.modelPath`(已弃用的本机模型路径);
 - 音色档里**任何**绝对路径值——递归扫描,藏在几层嵌套下的也剥;
-- `publish.profileDir`(浏览器登录态目录);
 - `config` 段里的绝对路径值。
 
 还有两样东西不是「机器特定」,而是「属于你本人」,导出时同样不跟卡走:
