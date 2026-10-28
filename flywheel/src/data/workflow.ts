@@ -79,7 +79,7 @@ export interface Stage {
   detail: string;
 }
 
-/** 九步流水线 —— 卡里 pipeline.template = channek.explainer-9 声明的步序。
+/** 九步流水线 —— 卡里 pipeline.steps 声明的步序。
  *  每步是「卡声明的 key ↔ 插件贡献的 step 实现」：卡只写数据，干活的是插件。 */
 export const STAGES: Stage[] = [
   {
@@ -158,7 +158,7 @@ export const STAGES: Stage[] = [
     artifact: '字幕轨',
     oneLiner: '从旁白轨做词级对齐，产出字幕 cue 数据，交给剪辑与导出。',
     detail:
-      '语音识别对齐由 ASR 能力插件接住（links.asr），产出的是 cues.json 数据工件而非「烧死在画面里的字」——字幕样式跟着卡的 captions 段走，换样式不用重做对齐。',
+      '语音识别对齐由 ASR 能力插件接住（links.asr），产出的是 cues.json 数据工件而非「烧死在画面里的字」——字幕样式跟着卡里的字幕参数走，换样式不用重做对齐。',
   },
   {
     index: 7,
@@ -184,7 +184,7 @@ export const STAGES: Stage[] = [
     artifact: '封面',
     oneLiner: '从题目里提炼封面钩子，按卡里的封面锁出各平台尺寸。',
     detail:
-      '封面配置与提示词都是工件（cover.json + 提示词 md）：卡的 cover 段锁住版式与品牌元素，生图能力出图，多尺寸落盘。封面不即兴——它是品牌脸的一部分。',
+      '封面配置与提示词都是工件（cover.json + 提示词 md）：卡里的封面参数锁住版式与品牌元素，生图能力出图，多尺寸落盘。封面不即兴——它是品牌脸的一部分。',
   },
   {
     index: 9,
@@ -573,7 +573,6 @@ angle: <角度>   hook: <钩子>
     name: '卡的 pipeline 段',
     format: 'channel.json · 纯数据声明',
     code: `"pipeline": {
-  "template": "channek.explainer-9",
   "steps": [
     { "key": "topic",  "step": "channek.topic" },
     { "key": "script", "step": "channek.script" },
@@ -613,7 +612,7 @@ export const REPLICATE = [
   {
     n: '①',
     title: '打包',
-    desc: '频道导出成一个组合包（.channekcard）：拷走的是做法——频道卡、菜谱、频道插件，可随包携带配套插件；作品与人设留在你这儿。卡里绝无密钥、绝无机器路径——它在谁的电脑上都活。',
+    desc: '频道导出成一个组合包（.channel）：拷走的是做法——频道卡、菜谱、频道插件，可随包携带配套插件；作品与人设留在你这儿。卡里绝无密钥、绝无机器路径——它在谁的电脑上都活。',
     accent: 'yellow' as BrandColor,
   },
   {

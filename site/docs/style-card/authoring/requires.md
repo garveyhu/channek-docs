@@ -13,13 +13,13 @@ sidebar_position: 6
   "app": ">=0.4.0",                       // 应用版本门
   "providers": [
     {
-      "capability": "tts",                 // 要一类能力
+      "capability": "channek.tts",         // 要一类能力
       "prefer": ["acme.voxcpm"],           // 有序偏好:优先这家,按序回落
       "fallback": false,                   // 别家顶不顶得上(缺省 true = 顶得上)
       "plugins": ["acme.voice-lab"],       // 装哪个插件能得到上面的 provider
       "reason": "频道音色是用这套引擎训的"
     },
-    { "capability": "image", "prefer": ["acme.image-gen"] }
+    { "capability": "channek.image", "prefer": ["acme.image-gen"] }
   ],
   "plugins": [                             // 非 provider 类的额外全局插件依赖
     { "id": "acme.review-gate", "optional": true }
@@ -61,13 +61,13 @@ sidebar_position: 6
 ```jsonc
 "runtime": {
   "providers": [                          // 作者实际用的 provider / 模型 / 参数
-    { "capability": "image", "prefer": ["acme.image-gen"], "model": "sd3.5", "params": { "steps": 30 } }
+    { "capability": "channek.image", "prefer": ["acme.image-gen"], "model": "sd3.5", "params": { "steps": 30 } }
   ],
   "endpoints": [                          // 需要收卡人自备的服务端点
     {
       "id": "tts-service",
       "label": "TTS 服务",
-      "capability": "tts",
+      "capability": "channek.tts",
       "setup": {
         "summary": "配音要一个 HTTP TTS 服务,音色是你自己的",
         "difficulty": "proxy",             // hosted(填 key)/proxy(自建服务)/model(自训模型)

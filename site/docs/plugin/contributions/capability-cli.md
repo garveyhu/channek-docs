@@ -48,7 +48,7 @@ channek doctor                  # 体检:卡要求的东西齐了吗、缺的下
 
 # 调用层
 channek invoke channek.image prompt=@提示词.md --out ./出图
-channek invoke channek.tts text=@稿子.md --place channek.voiceTrack --entry 我的条目
+channek invoke channek.tts text=@稿子.md --place acme.voiceTrack --entry 我的条目
 ```
 
 `invoke` 的 stdout 末行恒是一行 JSON:

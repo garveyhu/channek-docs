@@ -10,7 +10,7 @@ sidebar_position: 1
 
 | 表 | 查什么 |
 |---|---|
-| [贡献键全表](/docs/reference/contribution-keys) | 插件能在 `contributes` 里声明的全部扩展点(41 个) |
+| [贡献键全表](/docs/reference/contribution-keys) | 插件能在 `contributes` 里声明的全部扩展点(40 个) |
 | [沙箱桥方法全表](/docs/reference/suite-bridge-ops) | T1 沙箱插件能调的全部宿主方法(34 条,封闭白名单) |
 | [清单校验规则](/docs/reference/manifest-rules) | `manifest.json` 被拒时的规则编号与含义 |
 | [主题 token](/docs/reference/theme-tokens) | 插件界面可用的全套 `--ck-*` 设计变量 |

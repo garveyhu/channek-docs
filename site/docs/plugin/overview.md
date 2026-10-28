@@ -61,7 +61,7 @@ graph LR
 | **剪辑台**面板 / 检查器 / 素材源 | [`editor.*`](./contributions/editor.md) | 路线图 |
 | 携带一张**频道卡模板** / 工件类型 / 目录布局 | [`workspace.*`](./contributions/content-production.md) | 部分 ✅ |
 
-全部 41 个贡献键的速查表见[参考 · 贡献键全表](/docs/reference/contribution-keys)。
+全部 40 个贡献键的速查表见[参考 · 贡献键全表](/docs/reference/contribution-keys)。
 
 ## 三条最容易被违反的规矩
 

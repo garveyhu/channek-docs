@@ -1,12 +1,12 @@
 ---
-title: 打包 .channekcard
+title: 打包 .channel
 description: 分享是拷贝做法、不拷作品与身份;组合包可以携带插件、导入时各归各位;bundle 段声明不带什么与随卡示例;瘦身不是优化,是分发能否成立的前提。
 sidebar_position: 3
 ---
 
-# 打包 .channekcard
+# 打包 .channel
 
-`.channekcard` 是频道卡的分发形态:一个 zip 单文件包 = **频道的做法那一半 + 可选的 `plugins/`**(按 `requires` 收进来的全局插件)。
+`.channel` 是频道卡的分发形态:一个 zip 单文件包 = **频道的做法那一半 + 可选的 `plugins/`**(按 `requires` 收进来的全局插件)。
 
 ## 分享是拷贝做法,不拷作品与身份
 
@@ -16,18 +16,17 @@ sidebar_position: 3
 |---|---|
 | **会带走** | `channel.json`(去掉顶层 `id` / `slug`)、`sop/` 这类做法文件、频道插件(卡的 `plugins` 点名的目录)、`layout.sections` 里标了 `recipe` 的区;按 `requires` 收携带的全局插件 |
 | **不会带走** | `layout.contentDir` 与没标 `recipe` 的 `sections`(做出来的东西)、点开头的本机状态(`.channek/`、`.claude/`)、`node_modules` 这类生成物,以及 `bundle.omit` 声明的部分 |
-| **改成问题** | `questions` 点名的字段(人设、口号这类):导出时撤下你的原值、改作示例,收卡人开频道时被问到,可以不填 |
+| **改成问题** | `config` 作者段里带 `ask` 的字段(人设、口号这类):导出时撤下你的原值、改作那道题的示例,收卡人开频道时被问到,可以不填 |
 
 ```jsonc
-"questions": {
-  "profile.persona": { "label": "人设" },
-  "profile.slogan":  { "label": "口号", "optional": true }
-}
+{ "key": "persona", "name": "人设", "type": "text",
+  "value": "讲清楚一个效率工具只要三分钟的博主",
+  "ask": { "example": "三分钟讲透一个效率工具的博主" } }
 ```
 
-问卷只认这里点名的字段——收卡人不能借问卷改卡的任意字段。导出时系统还会扫一遍做法文件,把**写死了频道名或人设**的地方指给你:别人用这张卡时 AI 也会照着说,建议改成通用说法。导出回执会讲清哪些内容留在你这儿、哪几项不带走。
+问卷只问带 `ask` 的字段——收卡人不能借问卷改卡的任意字段。写法见 [config 频道参数](../authoring/style-sections.md)。导出时系统还会扫一遍做法文件,把**写死了频道名或人设**的地方指给你:别人用这张卡时 AI 也会照着说,建议改成通用说法。导出回执会讲清哪些内容留在你这儿、哪几项不带走。
 
-导出用 app 的导出功能,**不要手工 zip**——导出器负责剥本机路径、排除内容与本机状态、撤下问卷字段的原值。
+导出用 app 的导出功能,**不要手工 zip**——导出器负责剥本机路径、展开布局 preset、排除内容与本机状态、撤下问卷字段的原值。
 
 ## 组合包:一起分发,各归各位
 

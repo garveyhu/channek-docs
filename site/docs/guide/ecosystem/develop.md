@@ -21,7 +21,7 @@ Channek 的卡格式、插件协议与全部扩展点契约——不用你把文
 
 | skill | 装了它,你的 AI 就会 |
 |---|---|
-| `channek-card-dev` | 替你做一个频道:写、改、校验频道卡 `channel.json`,并打包成 `.channekcard` 分发 |
+| `channek-card-dev` | 替你做一个频道:写、改、校验频道卡 `channel.json`,并打包成 `.channel` 分发 |
 | `channek-plugin-dev` | 替你开发插件:选形态、写 manifest、实现、调试、打包发布 |
 
 ## 安装

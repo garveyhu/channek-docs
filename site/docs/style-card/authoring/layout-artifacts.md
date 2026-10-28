@@ -1,6 +1,6 @@
 ---
 title: layout 与工件
-description: 目录结构不是硬编码——工件按语义 id 解析,路径由卡回答;layout 段声明内容在哪、产物落哪、频道里的资源摆在哪。
+description: 目录结构不是硬编码——工件按语义 id 解析,路径由卡回答;layout 段声明内容在哪、产物落哪,频道里的其它目录写成参数。
 sidebar_position: 4
 ---
 
@@ -44,7 +44,7 @@ kind 的默认 pattern(注册该 kind 的插件声明)
   "artifactAlsoRead": {                      // 读时也认的备用位置(不影响写)
     "acme.script": ["脚本*.md"]
   },
-  "detect": { "anyOf": ["work/runs"] }       // 「这个目录像不像本卡的频道」的探测线索
+  "detect": { "anyOf": ["work/runs"] }       // 这套布局的探测线索
 }
 ```
 
@@ -53,35 +53,29 @@ kind 的默认 pattern(注册该 kind 的插件声明)
 - **写位置永远只有一个**(`artifacts` 的 pattern);`artifactAlsoRead` 只扩大**读**的范围——多个写位置意味着产物落哪不确定,那比少认一个位置严重得多;
 - `artifacts` / `artifactAlsoRead` 的语义都是**替换不是追加**:卡说了就完全按卡说的算;
 - `contentDir` 与 `sections` 默认是**做出来的东西**(菜),分享时不进包;质检教训这类属于做法的区,标 `recipe: true` 就随卡走、算卡文件;
-- 新建频道时按 layout 搭目录骨架(`contentDir` + `sections` + 资源目录),打开根目录没有频道卡的目录时按 `detect` 探测。
+- 新建频道时按 layout 搭目录骨架,只造 `contentDir` 与 `sections` 这几个容器,不预先铺开每个工件的父目录;
+- `detect` 是这套布局的探测线索,用来认出这套目录结构。一个文件夹是不是频道,只看根目录有没有 `channel.json`,不看它。
 
-## cardAssets:频道里的资源摆在哪
+## 频道里的其它目录:写成参数
 
-内容目录之外,频道里**做法那一半**的资源约定也归 layout 声明(频道卡的卡根就是频道根,下面的路径都相对频道根):
+素材库、声音库、场景组件、品牌套件这些目录**不在 `layout` 里**。它们是创作域的知识,不同频道有完全不同的一套,内核也不替谁去找。它们是参数:写成 [`config`](./style-sections.md) 里的一个字段,值是频道根内的相对路径,由用到它的插件或你自己的脚本按完整键读取:
 
 ```jsonc
-"layout": {
-  "cardAssets": {
-    "libraries": {
-      "sound": "brand/素材库/声音",  // 声音库目录(频道根内相对路径)
-      "asset": "brand/素材库/图形",
-      "scenes": "brand/素材库/场景",
-      "skills": "sop/skills",       // 频道专属 skill 目录(给用户的 AI Agent 读;卡写了 agent.skills 时以它为准)
-      "fonts": "fonts"              // 卡自带字型目录
-    },
-    "docs": { "docs.brandSpec": "brand/品牌规范.md" },    // 文档挂载:卡字段 → 频道根内路径
-    "brandAssets": {
-      "root": "brand",
-      "avatar": ["头像/main.png", "头像/fallback.png"]   // 有序候选,按序回落
-    }
-  }
-}
+"config": { "sections": [
+  { "id": "library", "name": "素材库", "fields": [
+      { "key": "asset",  "name": "图形素材", "type": "fileRef", "value": "brand/素材库/图形" },
+      { "key": "sound",  "name": "声音库",   "type": "fileRef", "value": "brand/素材库/声音" },
+      { "key": "scenes", "name": "场景组件", "type": "fileRef", "value": "brand/素材库/场景" }
+  ] }
+] }
 ```
 
-**内核对 cardAssets 没有默认值**——素材库、品牌套件叫什么是创作域知识,卡没声明就是没有,系统一个目录都不会去猜。
+读的一方按 `library.asset`、`library.sound` 这样的完整键取值。卡没声明的目录就是没有,系统一个目录都不会去猜。频道专属 skill 与脚本的目录写在 [`agent` 段](./prompts-docs.md)。
+
+`layout` 只回答内核要用的那几件事:内容条目在哪、新条目叫什么、有哪些区、每类工件落在哪。
 
 :::warning
-`cardAssets` 里的库路径必须是**遏制在频道根内的相对路径**——绝对路径、盘符、含 `..` 的逃根路径都会被 schema 直接拒绝。这些路径会被拼在频道根后面直接上盘,放行逃根等于让导入的卡把软链指到频道外,那是路径逃逸漏洞,不是配置自由。
+`fileRef` 字段的值必须是**遏制在频道根内的相对路径**——绝对路径、盘符、含 `..` 的逃根路径都会被校验直接拒绝。这些路径会被拼在频道根后面直接上盘,放行逃根等于让导入的卡把读写指到频道外,那是路径逃逸漏洞,不是配置自由。
 :::
 
 ## 诚实进度:灯轨从工件推导

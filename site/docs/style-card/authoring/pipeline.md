@@ -1,6 +1,6 @@
 ---
 title: pipeline 流程声明
-description: 用有序的步骤数组声明内容怎么做出来——key 与 step 的分工、模板继承、缺步降级与静态体检。
+description: 用有序的步骤数组声明内容怎么做出来——key 与 step 的分工、出片模板只在开频道时展开一次、缺步降级与静态体检。
 sidebar_position: 3
 ---
 
@@ -8,12 +8,13 @@ sidebar_position: 3
 
 `pipeline` 段声明这个频道的内容**怎么一步步做出来**。它是卡最核心的一段:界面的进度灯轨、每步的工作台页面、自动化执行器,读的都是同一份声明。
 
+`pipeline` 里只有一个字段 `steps`:
+
 ```jsonc
 "pipeline": {
-  "template": "channek.explainer-9",   // 可选:继承一个出片模板的步序
-  "steps": [                            // 有序数组;给出则整体覆盖 template 的步序
+  "steps": [                            // 有序数组 = 真实步序
     { "key": "topic",   "step": "acme.topic" },
-    { "key": "script",  "step": "acme.script", "config": { "systemPromptRef": "sop/kit/prompts/script.md" } },
+    { "key": "script",  "step": "acme.script", "config": { "systemPromptRef": "sop/prompts/script.md" } },
     { "key": "review",  "step": "acme.review-gate", "optional": true },
     { "key": "edit",    "step": "channek.edit" },
     { "key": "publish", "step": "acme.publish", "config": { "platforms": ["bilibili"] } }
@@ -30,19 +31,21 @@ sidebar_position: 3
 | `config` | 本步的配置 | 按步骤定义声明的 config schema 在**保存/导入卡时**静态校验 |
 | `optional` | 缺了能不能跳 | `true` 时自动执行器跳过并如实记 `skipped`,否则停在该步等输入 |
 
+`channek.edit` 是内核自带的剪辑步:流程走到它,就进入剪辑台。它永远可用,不能被第三方替换。
+
 ## 一步的两面
 
 一个步骤定义可以有**自动化面**(机器执行)和**工作台面**(人工界面)之一或全有。两面全有,就是「AI 自动跑 + 人工精修」的典型形态。系统解析 `step` id 时至少要命中一面。
 
 **步的粒度是创作者的心智单位**:一步的自动化实现内部可以编排多个机械子动作(渲染步内部可能包含烘焙、合成、质检),那些是实现细节;流程声明里的一步,应该是创作者能一句话说清的一件事。
 
-## 模板继承
+## 出片模板:开频道时展开一次
 
-`template` 引用一个**出片模板**(由插件贡献的预设步序)。三种写法:
+**出片模板**是插件贡献的一组预设步序(比如「知识科普 9 步」「口播快剪 6 步」)。它不在卡里被引用:在 app 里用某个模板开新频道时,模板**展开一次**、写进新卡的 `pipeline.steps`;从那以后,谁都只读 `steps`。
 
-- 只写 `template`:整套用模板的步序;
-- 只写 `steps`:完全自定义;
-- 两个都写:`steps` **整体覆盖**模板步序(不是合并)。
+这样做的好处是,卡里写着的就是这个频道真实的流程:想加一步、删一步、换顺序,直接改 `steps`,不用去猜模板与覆盖之间的关系;模板插件以后升级,也不会悄悄改变已有频道的步序。
+
+**卡没写 `steps`,这个频道就没有步**——系统不会拿本机装着的所有内容步替你凑一条流程。
 
 ## 缺步降级:流程不因缺件崩溃
 
@@ -67,19 +70,6 @@ sidebar_position: 3
 步骤的输入输出衔接靠**类型化工件**,不靠步骤间直接对话——这是流程可以随意换步、插步而不牵一发动全身的原因。工件机制见[layout 与工件](./layout-artifacts.md)。
 :::
 
-## editor 段:剪辑步的预设
+## 步配置与频道参数的分工
 
-流程里命中内核剪辑步(`channek.edit`)时,新工程按卡的 `editor` 段初始化:
-
-```jsonc
-"editor": {
-  "trackTemplate": [                     // 新建工程的轨道布局
-    { "kind": "video", "name": "V1" },
-    { "kind": "caption", "name": "TXT" },
-    { "kind": "audio", "name": "旁白" }
-  ],
-  "macros": ["acme.removeSilences"],     // 默认启用的编辑宏
-  "panels": ["acme.mixer"],              // 默认开启的编辑器面板
-  "exportPreset": "acme.h264-master"     // 默认导出预设
-}
-```
+`steps[].config` 只管**这一步怎么跑**(这一步用哪份提示词、发哪几个平台)。整个频道共用的事实——人设、画幅、音色、字幕规范——写在 [`config` 频道参数](./style-sections.md)里,由需要它的步骤和插件按完整键去读,不在每一步的 `config` 里各抄一份。

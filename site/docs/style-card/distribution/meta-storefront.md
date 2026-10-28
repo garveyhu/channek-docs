@@ -17,6 +17,7 @@ sidebar_position: 2
   "author": "acme",
   "license": "CC-BY-4.0",
   "description": "口播快剪频道模板:6 步流水线 + 暖砂视觉",   // 一句话简介
+  "tags": ["视频", "竖屏", "口播"],             // 自由标签:频道中心按它筛选
   "icon": "brand/icon.png",                   // 频道根内相对路径
   "cover": "https://cdn.example.com/cover.png",   // 封面:外链或频道根内路径
   "trailer": "https://cdn.example.com/trailer.mp4", // 预告片:建议外链(视频进包会拖垮体积)
@@ -34,6 +35,8 @@ sidebar_position: 2
 - 路径一律遏制在频道根内,`..` 与绝对路径不认;
 - 两者都没声明,才轮到发布表单上传的文件兜底。
 
+`tags` 是自由标签(「视频」「竖屏」「小说」),频道中心按它筛选。横竖屏、媒介这类「产出形态」不设专门字段——它们因创作而异,写成标签就够了。
+
 `homepage` / `repository` / `authorUrl` 分三个字段不是啰嗦:一个指向卡的门面、一个指向代码与历史、一个指向作者本人——详情页上是三行不同的字,合成一个就只能猜着显示。
 
 ## STOREFRONT.md:商品页读的那一份
@@ -44,7 +47,7 @@ sidebar_position: 2
 |---|---|---|
 | `STOREFRONT.md` | **还没买的人** | 这套做法是什么、做出来长什么样、适合谁、带走的是什么 |
 | `README.md`(如 `sop/README.md`) | 拿到卡之后的人 | 目录怎么用、要装什么、怎么跑起来 |
-| 宪章(`AGENTS.md` 手写区)/ 风格锁文档 | 执行时的人与 AI | 这个频道的口径与不可越线的约束 |
+| 宪章(`AGENTS.md` 手写区)/ `agent.docs` 里的规范文档 | 执行时的人与 AI | 这个频道的口径与不可越线的约束 |
 
 规则:
 

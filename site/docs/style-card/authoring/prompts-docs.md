@@ -1,44 +1,58 @@
 ---
-title: prompts 与频道知识
-description: 提示词是频道品味的可迁移载体;宪章与规范文档让 AI 干活时懂这个频道——都随卡分发。
+title: agent 段:提示词与频道知识
+description: 给 AI 的入口全在 agent 段——工作流说明、skill 与脚本、开工提示、提示词、要先读的文档;宪章写在 AGENTS.md 的手写区。
 sidebar_position: 7
 ---
 
-# prompts 与频道知识
+# agent 段:提示词与频道知识
 
-一个频道真正值钱的,往往不是目录结构,而是**打磨过的提示词与成文的口径**——写稿的系统提示词、分镜的风格指引、审稿标准、创作宪章。卡为这些「品味资产」提供了几个归位:
-
-## prompts:提示词资产索引
+一个频道真正值钱的,往往不是目录结构,而是**打磨过的提示词与成文的口径**——写稿的系统提示词、分镜的风格指引、审稿标准、创作宪章。卡把给 AI 看的东西**全部收在 `agent` 一段**里:
 
 ```jsonc
-"prompts": {
-  "script": "sop/kit/prompts/script.md",       // 名字 → 频道根内相对路径
-  "storyboard": "sop/kit/prompts/storyboard.md",
-  "review": "sop/kit/prompts/review.md"
+"agent": {
+  "guide": "sop/README.md",                    // 工作流说明:这条流程怎么走
+  "skills": "sop/skills",                      // 频道专属 skill 目录
+  "scripts": "sop/kit/scripts",                // 频道自带的脚本目录
+  "kickoff": "sop/prompts/开工.md",            // 开工提示
+  "prompts": {                                 // 提示词:名字 → 频道根内相对路径
+    "script": "sop/prompts/script.md",
+    "storyboard": "sop/prompts/storyboard.md"
+  },
+  "docs": {                                    // 要先读的文档:名字 → 频道根内相对路径
+    "品牌规范": "brand/品牌规范.md",
+    "审稿标准": "sop/审稿标准.md"
+  }
 }
 ```
 
-提示词是**纯文本文件**,住在频道的做法那一半里(推荐 `sop/kit/prompts/`)。流程步骤的 `config` 用引用指向它们:
+app 按这一段生成频道根 `AGENTS.md` 的托管块;`channek check` 会逐个核对这些路径在频道里存不存在。
+
+| 字段 | 内容 | 写进 AGENTS.md 的哪里 |
+|---|---|---|
+| `guide` | 工作流说明 | 「先看这里」 |
+| `scripts` | 脚本目录 | 「先看这里」,提醒 Agent 跑之前先读每个脚本开头的用途 |
+| `skills` | skill 目录 | 「这个频道自带的 skill」;同时挂到频道根的 `.claude/skills/` |
+| `kickoff` | 开工提示(一份 md) | 「动手前先读」第一行;app 内置终端的开场白也读它 |
+| `prompts` | 提示词 | 「动手前先读」;用到它的步骤在「流程」一节多一行「写法看 …」 |
+| `docs` | 要先读的文档(判据、品牌规范、速查) | 「卡带的文档」,键原样当标签 |
+
+## prompts:提示词资产
+
+提示词是**纯文本文件**,住在频道的做法那一半里(推荐 `sop/prompts/`)。`prompts` 的键是步骤找提示词用的名字:步骤定义里写明它要哪个名字的提示词,流程走到那一步就用这一份。步骤的 `config` 也可以直接引用某个文件,前提是那个步骤定义了这样的配置项:
 
 ```jsonc
-{ "key": "script", "step": "acme.script", "config": { "systemPromptRef": "sop/kit/prompts/script.md" } }
+{ "key": "script", "step": "acme.script", "config": { "systemPromptRef": "sop/prompts/script.md" } }
 ```
 
-为什么用引用而不是把提示词内联进 `channel.json`:提示词会长、会频繁改,独立成文件才好维护、好 diff;而索引进卡,才能随卡打包分发。
+为什么用引用而不是把提示词内联进 `channel.json`:提示词会长、会频繁改,独立成文件才好维护、好 diff;而登记进卡,才能随卡打包分发。
 
-## docs:频道知识挂载
+`kickoff` 单列一个字段,而不是在 `prompts` 里约定一个特殊的名字——靠起对名字才生效的约定,写错一个字就静默失效。
 
-`docs` 段(以及 `layout.cardAssets.docs`)把频道的成文口径挂进系统:
+## docs:频道知识
 
-```jsonc
-"docs": {
-  "ipBrief": "brand/IP定位书.md",
-  "brandSpec": "brand/品牌规范.md",
-  "readme": "sop/README.md"
-}
-```
+`docs` 把频道的成文口径挂进系统。键是给人看的名字,直接当 AGENTS.md 里的标签。
 
-这些文档会作为**频道知识**注入 AI 层的上下文——AI 帮你写稿、剪辑、审片时,「懂这个频道」的依据就是它们。写卡时把口径写成文档,比指望每次对话现讲一遍可靠得多。
+这些文档会作为**频道知识**提供给 AI——AI 帮你写稿、剪辑、审片时,「懂这个频道」的依据就是它们。写卡时把口径写成文档,比指望每次对话现讲一遍可靠得多。
 
 :::note
 注入 AI 上下文的频道文档**带来源标注、用户可见可关**——这是系统对「数据也有行为面」的防线,不是对作者的不信任。写文档时按「会被完整读到」的标准写即可。
@@ -67,28 +81,18 @@ sidebar_position: 7
 `channel.json` 给 app,`AGENTS.md` 给 AI。在 app 里新建频道、用卡开频道时会生成这份文件;
 **打开已有频道只刷新已经存在的 `AGENTS.md`,不会新建**——手搭的频道先放一份只写手写区的 `AGENTS.md`,打开后托管块会插到它上方。
 
-## skills 与 agent 段:给 AI Agent 的入口
+## skills 与 scripts:给用户自己的 AI Agent
 
-卡的 `agent` 段声明在频道根开 AI Agent(Claude Code、Codex 等)时的三个入口:
-
-```jsonc
-"agent": {
-  "guide": "sop/README.md",       // 工作流说明:这条流程怎么走
-  "skills": "sop/skills",         // 频道专属 skill 目录
-  "scripts": "sop/kit/scripts"    // 频道自带的脚本目录
-}
-```
-
-- `skills` 指向的目录存放**频道专属 skill**——「这个频道怎么写稿 / 怎么做封面 / 怎么发布」的操作方法论,格式面向 AI Agent(每个 skill 一个目录,内含说明文档)。写了它就以它为准,覆盖 `layout.cardAssets.libraries.skills`;
-- `guide` 与 `scripts` 会被写进频道根 `AGENTS.md` 托管块的「先看这里」一节:在频道根开 Agent 的人,第一眼就知道流程说明在哪、有哪些脚本可用(每个脚本开头写一句它做什么)。
+- `skills` 指向的目录存放**频道专属 skill**——「这个频道怎么写稿 / 怎么做封面 / 怎么发布」的操作方法论,格式面向 AI Agent(Claude Code、Codex 等;每个 skill 一个目录,内含说明文档);
+- `scripts` 指向频道自带的脚本。每个脚本开头写一句它做什么,Agent 才知道什么时候该用它。
 
 打开频道时,应用把频道 skill(连同已启用插件自带的 skill)挂到频道根的 `.claude/skills/` 下,**由用户自己的 AI Agent 读取执行**——应用本身不执行 skill,也不运行这些脚本;需要内核调度的脚本应该做成插件。同名时卡里的优先。
 
-三者的分工一句话:**prompts 喂给流程里的某一步,docs 喂给整个 AI 层,skills 喂给用户自己的 Agent。** skill 引用 prompts,不复制——复制就是第二个真相源,改一处忘一处。
+几类入口的分工一句话:**prompts 喂给流程里的某一步,docs 喂给整个 AI 层,skills 与 scripts 交给用户自己的 Agent。** skill 引用 prompts,不复制——复制就是第二个真相源,改一处忘一处。
 
 ## 写这些资产时的边界
 
-- 全部用**频道根内的相对路径**,不写绝对路径(schema 与导出都会拦);
+- 全部用**频道根内的相对路径**,不写绝对路径(校验与导出都会拦);
 - 提示词与文档里别写死本机信息(路径、端口、账号)——它们会原样随卡出门;
-- 也别写死你的频道名与人设:别人用这张卡时 AI 会照着说。导出时系统会扫一遍做法文件、把这类地方指给你,建议改成通用说法;
-- 大体积媒体(参考视频、模板工程)慎入:分发体积直接决定你的卡装不装得动,见[打包 .channekcard](../distribution/packaging.md) 的瘦身原则。
+- 也别写死你的频道名与人设:别人用这张卡时 AI 会照着说。人设这类值写进 `config` 的 `profile` 段(AGENTS.md 会收录它),文档里不再重复;导出时系统会扫一遍做法文件、把写死的地方指给你;
+- 大体积媒体(参考视频、模板工程)慎入:分发体积直接决定你的卡装不装得动,见[打包 .channel](../distribution/packaging.md) 的瘦身原则。

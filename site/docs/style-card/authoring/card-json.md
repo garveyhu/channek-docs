@@ -1,6 +1,6 @@
 ---
 title: channel.json 结构总览
-description: 必填只有四个字段,其余全是可选段——卡的身份与频道的身份分开记,段内严校验规则。
+description: 必填只有四个字段,顶层只认 18 个键——卡的身份与频道的身份分开记,领域参数一律进 config,段内严校验规则。
 sidebar_position: 1
 ---
 
@@ -11,7 +11,7 @@ sidebar_position: 1
 ```jsonc
 {
   "schema": "channek.channel",               // 固定值
-  "formatVersion": 1,                         // 固定值
+  "formatVersion": 2,                         // 固定值
   "name": "口播快剪",                          // 显示名
   "card": { "id": "acme.talkfast", "version": "1.0.0" }   // 卡自己的身份(<发布者>.<名字>);card.id 必填
 }
@@ -23,64 +23,60 @@ sidebar_position: 1
 
 | 字段 | 是谁的身份 | 谁来写 |
 |---|---|---|
-| `card.id` | **卡自己**:`<发布者>.<名字>` 点分小写(`channek.*` 保留给官方)。血缘、市场、「从原卡更新」都认它;`card` 段里还可以写 `slug` / `version` / `face` / `createdAt` / `modifiedAt` | 作者写;必填 |
+| `card.id` | **卡自己**:`<发布者>.<名字>` 点分小写(`channek.*` 保留给官方)。血缘、市场、「从原卡更新」都认它;`card` 段里还可以写 `slug` / `version` / `createdAt` / `modifiedAt`,不收别的键 | 作者写;必填 |
 | 顶层 `id` / `slug` | **这个频道在某台机器上**的身份(`id` 是 `ws_` 加 12 位) | app 首次打开时生成并写回;不用手写,导出卡包、用卡建新频道时剥掉 |
+
+`card.slug` 不写就取 `card.id` 的最后一段;`card.version` 是你自己的发版号;时间字段用带时区的 ISO 8601。
 
 为什么分成两个:同一张卡可以开出很多个频道(你自己开第二个号、别人拿去用),卡的身份要在所有这些频道之间保持一致,频道的身份要各不相同——塞进一个字段,分享和复刻就一定有一边是错的。
 
-## 分段结构
+## 顶层的 18 个键
 
-可选段按职责分层:
+顶层只放**任何一种创作都用得上**的结构,恰好 18 个键:
 
-| 层 | 段 | 回答什么 |
-|---|---|---|
-| **这是个什么频道** | `profile` `format` | `profile`:定位、受众、人设、口号、简介;`format`:成片形态的三个枚举(横竖屏 / 出镜方式 / 字幕粒度),写了就三个全写 |
-| **style 风格** | `brand` `locks` `voice` `captions` `cover` `audio` `libraries` `generation` `freeze` `docs` `platforms` | 品牌 token、画风锁、音色档、字幕、封面、混音、素材索引、生成默认、冻结闸、文档挂载、平台 |
-| **process 流程** | `pipeline` `layout` `editor` `prompts` `config` | 步序与每步配置、目录布局与工件位置、剪辑台预设、提示词资产索引、卡自声明的可编辑配置面(设置页按它渲染表单) |
-| **presentation 呈现** | `presentation` | 频道界面启用哪些功能区、默认落在哪 |
+| 归类 | 段 | 回答什么 | 详见 |
+|---|---|---|---|
+| **身份** | `schema` `formatVersion` `id` `slug` `name` `card` | 这是一张频道卡;卡是谁、频道是谁 | 本页 |
+| **外观与市场** | `appearance` `meta` | 书架上的样子(封面、颜色、图标);作者、许可、简介、自由标签 `tags`、商品页物料 | [meta 与上架物料](../distribution/meta-storefront.md) |
+| **内容怎么组织、怎么做** | `layout` `pipeline` `presentation` | 目录布局与工件落点;步序与每步配置;启用哪些功能区 | [layout 与工件](./layout-artifacts.md) · [pipeline 流程声明](./pipeline.md) · [presentation](./presentation.md) |
+| **给 AI 的入口** | `agent` | 工作流说明、skill 与脚本目录、开工提示、提示词、要先读的文档 | [agent 段:提示词与频道知识](./prompts-docs.md) |
+| **参数** | `config` `pluginSettings` | 频道参数(定位、品牌、画幅、音色、字幕、发布账号……);随卡走的插件调参 | [config 频道参数](./style-sections.md) |
+| **依赖** | `requires` `plugins` `runtime` | 应用版本门、能力与 provider 偏好、全局插件、密钥;住在频道里的频道插件;作者用的环境与要自备的端点 | [requires 依赖声明](./requires.md) · [卡与插件的关系](../concepts/card-and-plugins.md) |
+| **打包** | `bundle` | 分享时不带什么、随卡示例内容 | [打包 .channel](../distribution/packaging.md) |
 
-之外还有几个跨层段:
+**顶层不收未知键,多一个就不合格式**——哪怕是一个空段,哪怕只是拼错了一个字母。`card`、`layout`、`pipeline`、`agent` 这几段本身,以及 `config` 里的每一段、每个字段,也都不收未知键。写错的段当场报错,而不是悄悄混过去、没有任何人读它。
 
-| 段 | 回答什么 | 详见 |
-|---|---|---|
-| `requires` | 依赖清单:应用版本门、能力与 provider 偏好、全局插件、密钥 | [requires 依赖声明](./requires.md) |
-| `plugins` | 住在本频道里的**频道插件**目录(频道根内相对路径,如 `plugins/acme.talkfast-suite`) | [卡与插件的关系](../concepts/card-and-plugins.md) |
-| `agent` | 给 AI Agent 的三个入口:`guide` 工作流说明、`skills` skill 目录、`scripts` 脚本目录 | [prompts 与频道知识](./prompts-docs.md) |
-| `questions` | 别人用这张卡开频道时问的题(键是本文件的字段路径,如 `profile.persona`) | [打包 .channekcard](../distribution/packaging.md) |
-| `runtime` | 「作者用的是什么环境」:端点需求与 provider 绑定展示(**不参与运行时选路**) | [requires 依赖声明](./requires.md) |
-| `pluginSettings` | 随卡走的**频道级**插件参数(语速、出图步数这类「频道个性」) | [requires 依赖声明](./requires.md) |
-| `meta` | 市场元信息:作者、许可、简介、封面、截图廊 | [meta 与上架物料](../distribution/meta-storefront.md) |
-| `bundle` | 分发清单:打包时不带什么(`omit`)、随卡示例内容(`demo`) | [打包 .channekcard](../distribution/packaging.md) |
+## 领域参数一律进 config
+
+人设、画幅、配音、字幕、封面、发布平台这类参数,**只有某一种创作才需要**。它们不占顶层,一律写成 `config` 里的一段:
+
+- 作者自己定义的参数(频道定位、质检阈值、素材目录)写成**作者段**,字段定义和值都在卡里;
+- 插件定义的参数(画幅、字幕样式、音色、发布账号)写成**插件段**,卡里只存值,字段定义在插件清单里。
+
+为什么顶层这么紧:顶层每多一个只有视频频道才有的段,写小说、做面试题的频道就要面对一个与它无关的字段;内核每认识一个领域字段,那个领域的知识就焊进了软件。**内核不按名字读任何参数**——没有「起对名字就生效」的特殊键,每个参数都由声明它的插件或你自己的脚本按完整键去读。加一个参数之前,先回答一句:**谁读它?** 详见 [config 频道参数](./style-sections.md)。
 
 卡里写的所有路径都是**频道根内的相对路径**(频道卡的卡根就是频道根)——绝对路径与含 `..` 的路径会被校验拒绝。
 
-内核要读的创作参数(画风锁、配音、字幕、冻结闸、发布账号)**只认 `config` 段里的声明**——用约定的 key(如 `channek.visual.imagePrompt`)声明了才算数;style 段写了照样合法,但不会替 `config` 兜底。
-
-频道的**宪章**(定位、红线、口吻)不进卡:它写在频道根 `AGENTS.md` 托管块下方的手写区,见 [prompts 与频道知识](./prompts-docs.md)。
+频道的**宪章**(定位、红线、口吻)不进卡:它写在频道根 `AGENTS.md` 托管块下方的手写区,见 [agent 段:提示词与频道知识](./prompts-docs.md)。
 
 ## 段内严校验
 
 「全段可选」不等于「随便写」:**某段一旦出现,段内必填字段一个都不能少,段内引用必须自洽**,校验器会逐条检查。已定义的规则包括:
 
-- 写了 `format`,`orientation` / `persona` / `captions` 三个枚举都得有;写了 `brand.tokens`,六项都得有;
-- `brand.tokens.accent` 必须是 `brand.tokens.colors` 里存在的键;
-- `voice.default` 必须指向 `voice.profiles` 里存在的音色档;
+- 写了 `pipeline.steps`,每一步的 `key` 与 `step` 都得有;写了 `layout.sections`,每一项的 `id` 与 `path` 都得有;
 - `presentation.sections` 的 id 不许重复,`defaultSection` 必须在 `sections` 里;
+- `config` 的段 id 全卡唯一,完整键(段 id + `.` + 字段键)也全卡唯一;作者段的字段值必须合它的类型(颜色只收 hex、选项必须在 `options` 里),`directory` 类型的字段不许带值;
 - `runtime.endpoints` 的 id 不许重复,且**端点声明里绝不允许出现值键**(`url` / `port` / `apiKey` / `token` 等)——卡只声明「需要哪些端点」,值一律落本机设置;
-- `runtime.providers` 每个能力只许绑定一次,`endpoint` 引用必须存在。
+- `runtime` 里的能力 id 必须带命名空间(如 `channek.tts`);`runtime.providers` 每个能力只许绑定一次,`endpoint` 引用必须存在。
 
-「写了某段就必须写全」的完整清单见[频道卡字段速查](/docs/reference/card-schema)。写完用 app 附带的命令行验一遍,它和 app 读卡用的是同一份判据,报错路径就是 `channel.json` 里的字段路径:
+「写了某段就必须写全」的完整清单见[频道卡字段速查](/docs/reference/card-schema)。写完用 app 附带的命令行验一遍,它和 app 读卡用的是同一份判据,报错路径就是 `channel.json` 里的字段路径;插件段的值也会按本机装着的插件清单校验:
 
 ```bash
 channek check <频道目录>
 ```
 
-卡不合 schema 时,app 打开这个文件夹会先按普通文件夹打开,顶上一条横幅写明「频道卡没能认出来」和出错的字段——按横幅改完点「改好了,重新读取」即可。
+卡不合格式时,app 打开这个文件夹会先按普通文件夹打开,顶上一条横幅写明「频道卡没能认出来」和出错的字段——按横幅改完点「改好了,重新读取」即可。
 
 :::warning
 端点值禁入卡是红线而不是风格建议:卡是可分发的,写进卡就等于把「这台机器怎么配」焊死在卡里,还会让导出的卡包泄漏本机地址与密钥。
 :::
-
-## 未知字段的态度
-
-schema 对未知字段是**宽容的**(不报错、原样保留)——这是「协议只增不改」的另一面:新版软件写进卡的新段,旧版软件读到不炸、保存不丢。但你**不该**依赖未声明的字段做任何事:没写进 schema 的字段等于没对外存在过。

@@ -97,22 +97,24 @@ function CardSnippet() {
         <code>
           {'{\n'}
           {'  '}<K>"schema"</K>: <S>"channek.channel"</S>,{'\n'}
-          {'  '}<K>"formatVersion"</K>: <N>1</N>,{'\n'}
+          {'  '}<K>"formatVersion"</K>: <N>2</N>,{'\n'}
           {'  '}<K>"name"</K>: <S>"口播快剪"</S>,{'\n'}
           {'  '}<K>"card"</K>: {'{ '}<K>"id"</K>: <S>"acme.talkfast"</S>{' },\n'}
           {'\n'}
           {'  '}<K>"pipeline"</K>: {'{\n'}
           {'    '}<K>"steps"</K>: [{'\n'}
-          {'      '}{'{ '}<K>"key"</K>: <S>"topic"</S>, <K>"step"</K>: <S>"channek.topic"</S>{' },\n'}
-          {'      '}{'{ '}<K>"key"</K>: <S>"script"</S>, <K>"step"</K>: <S>"channek.script"</S>{' },\n'}
+          {'      '}{'{ '}<K>"key"</K>: <S>"topic"</S>, <K>"step"</K>: <S>"acme.topic"</S>{' },\n'}
+          {'      '}{'{ '}<K>"key"</K>: <S>"script"</S>, <K>"step"</K>: <S>"acme.script"</S>{' },\n'}
           {'      '}{'{ '}<K>"key"</K>: <S>"voice"</S>, <K>"step"</K>: <S>"acme.tts-take"</S>{' },\n'}
           {'      '}{'{ '}<K>"key"</K>: <S>"edit"</S>, <K>"step"</K>: <S>"channek.edit"</S>{' },\n'}
-          {'      '}{'{ '}<K>"key"</K>: <S>"publish"</S>, <K>"step"</K>: <S>"channek.publish"</S>{' }\n'}
+          {'      '}{'{ '}<K>"key"</K>: <S>"publish"</S>, <K>"step"</K>: <S>"acme.publish"</S>{' }\n'}
           {'    ]\n'}
           {'  },\n'}
           {'\n'}
           {'  '}<K>"requires"</K>: {'{\n'}
-          {'    '}<K>"providers"</K>: [{'{ '}<K>"capability"</K>: <S>"channek.tts"</S>{' }]\n'}
+          {'    '}<K>"providers"</K>: [{'\n'}
+          {'      '}{'{ '}<K>"capability"</K>: <S>"channek.tts"</S>, <K>"prefer"</K>: [<S>"acme.tts"</S>]{' }\n'}
+          {'    ]\n'}
           {'  }\n'}
           {'}'}
         </code>
@@ -148,7 +150,7 @@ export default function Home() {
                 开发插件
               </Link>
             </div>
-            <p className={styles.metaLine}>58 篇文档 · 41 个贡献键 · 34 条沙箱桥操作</p>
+            <p className={styles.metaLine}>58 篇文档 · 40 个贡献键 · 34 条沙箱桥操作</p>
           </div>
           <CardSnippet />
         </header>

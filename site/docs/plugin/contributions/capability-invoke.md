@@ -75,7 +75,7 @@ sidebar_position: 2
 
 ## 参数从哪来:三层合并
 
-`{{params.*}}` 的值由三层配置合并:**user(机器级)< card(卡里带的)< workspace(频道侧车)**。
+`{{params.*}}` 的值由三层配置合并:**user(机器级)< card(卡 `pluginSettings` 里带的)< workspace(频道侧车)**。
 
 - 只有你在 `ui.settingsSection` 里**声明过的键**会落进 params(白名单,也是隐私闸)。
 - **机器级的键在卡层与频道层一律被剔除**——卡可能是导入的,放任它覆盖 `endpoint` 是安全漏洞。

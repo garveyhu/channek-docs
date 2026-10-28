@@ -1,12 +1,12 @@
 ---
 title: 贡献键全表
-description: 插件在 manifest.json 的 contributes 里可用的全部扩展点键,共 41 个,按域分组。
+description: 插件在 manifest.json 的 contributes 里可用的全部扩展点键,共 40 个,按域分组。
 sidebar_position: 2
 ---
 
 # 贡献键全表(扩展点)
 
-插件在 `manifest.json` 的 `contributes` 里按这些键贡献东西,共 **41** 个。这张表是**声明面**的全集;每个键的契约类型以 app 附带的插件 SDK 类型定义为准。
+插件在 `manifest.json` 的 `contributes` 里按这些键贡献东西,共 **40** 个。这张表是**声明面**的全集;每个键的契约类型以 app 附带的插件 SDK 类型定义为准。
 
 ## ui —— 界面贡献(13)
 
@@ -31,7 +31,7 @@ sidebar_position: 2
 | 贡献键 | 它是什么 |
 |---|---|
 | `production.step` | 一步的自动化实现(与 `ui.contentStep` 同 id 关联,两面至少有其一)。 |
-| `production.template` | 出片模板 = 一组预设步序,卡 `pipeline.template` 引用之。 |
+| `production.template` | 出片模板 = 一组预设步序;用它开新频道时展开一次,写进新卡的 `pipeline.steps`。 |
 | `production.analyzer` | 进度真相模型:从工件推导每步灯色的分析器。 |
 
 ## generation —— 素材生成(4)
@@ -43,12 +43,11 @@ sidebar_position: 2
 | `generation.preview` | 编辑期场景预览 bundle 能力;与离线烘焙分开,避免两条生命周期互相冒充。 |
 | `generation.scene` | 场景渲染器(某种 `generatorKind` 的认领者)。 |
 
-## publish / operations(2)
+## publish —— 发布(1)
 
 | 贡献键 | 它是什么 |
 |---|---|
 | `publish.platform` | 一个发布平台的对接实现。 |
-| `operations.dataSource` | 运营中心的指标数据来源。 |
 
 ## media —— 媒体管线(3)
 
@@ -95,5 +94,5 @@ sidebar_position: 2
 | `developer.terminal` | 内置终端的一种终端档案。 |
 
 :::info
-41 = ui 13 + production 3 + generation 4 + publish/operations 2 + media 3 + ai 4 + editor 5 + workspace 3 + capability/credential/developer 4。列在表里不等于每个点当前都已有消费方;某个点有没有人读它,以 app 版本说明为准。
+40 = ui 13 + production 3 + generation 4 + publish 1 + media 3 + ai 4 + editor 5 + workspace 3 + capability/credential/developer 4。列在表里不等于每个点当前都已有消费方;某个点有没有人读它,以 app 版本说明为准。
 :::
