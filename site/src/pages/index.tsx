@@ -150,7 +150,7 @@ export default function Home() {
                 开发插件
               </Link>
             </div>
-            <p className={styles.metaLine}>58 篇文档 · 40 个贡献键 · 34 条沙箱桥操作</p>
+            <p className={styles.metaLine}>58 篇文档 · 40 个贡献键 · 31 条沙箱桥操作</p>
           </div>
           <CardSnippet />
         </header>

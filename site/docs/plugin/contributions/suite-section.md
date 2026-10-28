@@ -69,7 +69,7 @@ sdk.onInit(async init => {
 });
 ```
 
-数据、导航、剪贴板全部走 suite 桥的 typed 白名单 op(读素材概览 / 运营快照 / 内容条目 / 卡声明 / 管线状态;导航 `shell.openContent` / `shell.openSection`;写 `operations.saveBacklog` / `operations.updateField`——[全表见参考](/docs/reference/suite-bridge-ops))。要点:
+数据、导航、剪贴板全部走 suite 桥的 typed 白名单 op(读素材概览 / 内容条目 / 卡声明与频道参数 / 管线状态;导航 `shell.openContent` / `shell.openSection`;频道级数据用 `channel.readFile` / `channel.writeFile` 读写——[全表见参考](/docs/reference/suite-bridge-ops))。要点:
 
 - **读应答 ≤1MB**,超限明确报错并提示分页;大清单在 iframe 内自己虚拟滚动。
 - **媒体不过桥**:应答里的 `channek-media:` 能力 URL 直接给 `<img>` / `<video>`(沙箱 CSP 已放行);URL 不可外携,插件停用即失效。
