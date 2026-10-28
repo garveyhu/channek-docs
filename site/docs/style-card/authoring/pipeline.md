@@ -14,10 +14,10 @@ sidebar_position: 3
 "pipeline": {
   "steps": [                            // 有序数组 = 真实步序
     { "key": "topic",   "step": "acme.topic" },
-    { "key": "script",  "step": "acme.script", "config": { "systemPromptRef": "sop/prompts/script.md" } },
+    { "key": "script",  "step": "acme.script", "config": { "produces": "脚本.md", "note": "口播稿按真实旁白写" } },
     { "key": "review",  "step": "acme.review-gate", "optional": true },
     { "key": "edit",    "step": "channek.edit" },
-    { "key": "publish", "step": "acme.publish", "config": { "platforms": ["bilibili"] } }
+    { "key": "publish", "step": "acme.publish", "config": { "note": "对外发布必须作者本人确认" } }
   ]
 }
 ```
@@ -28,7 +28,7 @@ sidebar_position: 3
 |---|---|---|
 | `key` | 这一步**在本频道流程里的实例标识** | 频道内唯一;工件归属、进度记录、灯轨锚点都按它记账 |
 | `step` | **步骤定义 id**,由插件注册 | 同一个步骤定义可在一条流程里出现多次(不同 `key`) |
-| `config` | 本步的配置 | 按步骤定义声明的 config schema 在**保存/导入卡时**静态校验 |
+| `config` | 本步的配置 | 任何步骤都能写两项:`produces`(这一步产出什么,卡片查看器画在步骤上)和 `note`(给人和 AI 的一句约定)。其余配置项由步骤定义声明,按它的 config schema 在**保存/导入卡时**静态校验 |
 | `optional` | 缺了能不能跳 | `true` 时自动执行器跳过并如实记 `skipped`,否则停在该步等输入 |
 
 `channek.edit` 是内核自带的剪辑步:流程走到它,就进入剪辑台。它永远可用,不能被第三方替换。

@@ -38,11 +38,14 @@ app 按这一段生成频道根 `AGENTS.md` 的托管块;`channek check` 会逐�
 
 ## prompts:提示词资产
 
-提示词是**纯文本文件**,住在频道的做法那一半里(推荐 `sop/prompts/`)。`prompts` 的键是步骤找提示词用的名字:步骤定义里写明它要哪个名字的提示词,流程走到那一步就用这一份。步骤的 `config` 也可以直接引用某个文件,前提是那个步骤定义了这样的配置项:
+提示词是**纯文本文件**,住在频道的做法那一半里(推荐 `sop/prompts/`)。`prompts` 的键是步骤找提示词用的名字:步骤定义用 `promptKey` 写明它读哪个键,流程走到那一步就用这一份。例如某个写稿步骤声明了 `"promptKey": "script"`,卡里这样配:
 
 ```jsonc
-{ "key": "script", "step": "acme.script", "config": { "systemPromptRef": "sop/prompts/script.md" } }
+"pipeline": { "steps": [{ "key": "script", "step": "acme.script" }] },
+"agent":    { "prompts": { "script": "sop/prompts/script.md" } }
 ```
+
+要知道某个步骤读哪个键,看它所在插件的说明。卡里没写这个键时,那一步就没有提示词,界面上也不显示「写法看 …」。
 
 为什么用引用而不是把提示词内联进 `channel.json`:提示词会长、会频繁改,独立成文件才好维护、好 diff;而登记进卡,才能随卡打包分发。
 
